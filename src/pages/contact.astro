@@ -1,0 +1,175 @@
+---
+import Layout from "../layouts/Layout.astro"
+import insta from '../assets/icons/instagram.svg';
+import x from '../assets/icons/x.svg';
+import facebook from '../assets/icons/facebook.svg';
+import youtube from '../assets/icons/youtube.svg';
+---
+
+
+<Layout>
+      	<!-- Banner under header -->
+	<section class="w-full bg-[#151A25]">
+		<div class="max-w-6xl mx-auto px-4 py-12 text-center">
+			<h2 class="text-white text-4xl md:text-5xl font-bold courier-prime-bold">Contactez-nous</h2>
+			<p class="text-white/80 mt-4 text-lg md:text-xl">Nous sommes à votre écoute</p>
+		</div>
+	</section>
+			<!-- Contact form -->
+			<section class="py-16">
+				<div class="max-w-3xl mx-auto px-4">
+					<div class="bg-[#0F1419] rounded-lg p-8 shadow-lg border border-[#23272b]">
+						<h3 class="text-white text-2xl courier-prime-bold mb-6">Envoyez-nous un message</h3>
+
+						<form id="contactForm" class="space-y-4" novalidate>
+							<div>
+								<label class="text-sm text-white block mb-2">Nom complet</label>
+								<input type="text" name="name" id="name" required class="w-full bg-[#1f2327] text-white placeholder-gray-400 rounded-md py-3 px-4 border border-[#3a3f44] focus:outline-none focus:ring-2 focus:ring-purple-700" />
+							</div>
+
+							<div>
+								<label class="text-sm text-white block mb-2">Email</label>
+								<input type="email" name="email" id="email" required class="w-full bg-[#1f2327] text-white placeholder-gray-400 rounded-md py-3 px-4 border border-[#3a3f44] focus:outline-none focus:ring-2 focus:ring-purple-700" />
+							</div>
+
+							<div>
+								<label class="text-sm text-white block mb-2">Sujet</label>
+								<select name="subject" id="subject" required class="w-full bg-[#1f2327] text-white rounded-md py-3 px-4 border border-[#3a3f44] focus:outline-none focus:ring-2 focus:ring-purple-700">
+									<option class="bg-[#1f2327] text-white" value="">Choisir un sujet</option>
+									<option class="bg-[#1f2327] text-white">Renseignements</option>
+									<option class="bg-[#1f2327] text-white">Billetterie</option>
+									<option class="bg-[#1f2327] text-white">Partenariat</option>
+									<option class="bg-[#1f2327] text-white">Accès et transports</option>
+									<option class="bg-[#1f2327] text-white">Hébergement</option>
+									<option class="bg-[#1f2327] text-white">Partenariat</option>
+									<option class="bg-[#1f2327] text-white">Presse</option>
+									<option class="bg-[#1f2327] text-white">Autre</option>
+								</select>
+							</div>
+
+							<div>
+								<label class="text-sm text-white block mb-2">Message</label>
+								<textarea name="message" id="message" rows="6" required class="w-full bg-[#1f2327] text-white placeholder-gray-400 rounded-md py-3 px-4 border border-[#3a3f44] focus:outline-none focus:ring-2 focus:ring-purple-700"></textarea>
+							</div>
+
+							<div id="formFeedback" class="text-sm text-white"></div>
+
+							<div>
+								<button id="submitBtn" type="submit" class="w-full bg-purple-900 hover:bg-purple-800 text-white py-4 mt-2 rounded-full courier-prime-bold border-2 border-purple-700/30 shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-300/30">Envoyer le message</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</section>
+
+			<!-- Coordonnées: ajouté sous le formulaire -->
+			<section class="py-8">
+			  <div class="max-w-3xl mx-auto px-4">
+			    <div class="bg-[#0F1419] rounded-lg p-8 shadow-lg border border-[#23272b]">
+			      <h3 class="text-white text-2xl courier-prime-bold mb-6">Nos coordonnées</h3>
+			      <div class="text-white">
+			        <p class="text-yellow-400 font-bold mb-2">Adresse</p>
+			        <p class="text-sm mb-4">Les Rives du Territoire<br/>Berges de la Savoureuse<br/>90000 Belfort, France</p>
+			
+			        <p class="text-yellow-400 font-bold mb-2">Email</p>
+			        <p class="text-sm mb-4">contact@rivesterritoire.fr</p>
+			
+			        <p class="text-yellow-400 font-bold mb-2">Téléphone</p>
+			        <p class="text-sm mb-6">+33 (0)3 84 22 00 00</p>
+			
+			        <p class="text-yellow-400 font-bold mb-3">Suivez-nous</p>
+					<div class="flex items-center gap-3">
+						<a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-[#1f2327] flex items-center justify-center">
+							<img src={facebook.src} alt="Facebook" class="w-4 h-4" />
+						</a>
+						<a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-[#1f2327] flex items-center justify-center">
+							<img src={insta.src} alt="Instagram" class="w-4 h-4" />
+						</a>
+						<a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-[#1f2327] flex items-center justify-center">
+							<img src={x.src} alt="X (Twitter)" class="w-4 h-4" />
+						</a>
+						<a href="https://youtube.com/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-[#1f2327] flex items-center justify-center">
+							<img src={youtube.src} alt="YouTube" class="w-4 h-4" />
+						</a>
+					</div>
+			      </div>
+			    </div>
+			  </div>
+			</section>
+
+			<style>
+				/* Force select dropdown and options to dark background (some browsers show native white) */
+				#subject,
+				#subject option {
+					background-color: #1f2327 !important;
+					color: #fff !important;
+				}
+				select#subject::-ms-expand { display: none; }
+
+				/* Button color only: background and hover (no other style changes) */
+				#submitBtn {
+					background-color: #2f1f4f !important;
+					color: #ffffff !important;
+				}
+				#submitBtn:hover {
+					background-color: #3b2a6a !important;
+				}
+			</style>
+
+			<script type="module">
+				const form = document.getElementById('contactForm');
+				const submitBtn = document.getElementById('submitBtn');
+				const feedback = document.getElementById('formFeedback');
+
+				function validateEmail(email) {
+					return /\S+@\S+\.\S+/.test(email);
+				}
+
+				form.addEventListener('submit', async (e) => {
+					e.preventDefault();
+					feedback.textContent = '';
+
+					const data = {
+						name: form.name.value.trim(),
+						email: form.email.value.trim(),
+						subject: form.subject.value,
+						message: form.message.value.trim(),
+					};
+
+					if (!data.name || !data.email || !data.subject || !data.message) {
+						feedback.textContent = 'Veuillez remplir tous les champs.';
+						return;
+					}
+
+					if (!validateEmail(data.email)) {
+						feedback.textContent = 'Veuillez renseigner une adresse email valide.';
+						return;
+					}
+
+					submitBtn.disabled = true;
+					submitBtn.textContent = 'Envoi en cours...';
+
+					try {
+						// Envoi vers un endpoint à implémenter côté serveur
+						const res = await fetch('/api/contact', {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify(data),
+						});
+
+						if (res.ok) {
+							feedback.textContent = 'Message envoyé, merci !';
+							form.reset();
+						} else {
+							const json = await res.json().catch(() => ({}));
+							feedback.textContent = json?.error || 'Une erreur est survenue lors de l\'envoi.';
+						}
+					} catch (err) {
+						feedback.textContent = 'Impossible de contacter le serveur.';
+					} finally {
+						submitBtn.disabled = false;
+						submitBtn.textContent = 'Envoyer le message';
+					}
+				});
+			</script>
+</Layout>

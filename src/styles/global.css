@@ -55,6 +55,7 @@
 }
 
 /* Set global page background to project's dark color */
+/* Set global page background to white */
 body {
-  background: var(--color-black);
+  background: var(--color-white);
 }
