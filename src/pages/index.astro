@@ -1,19 +1,19 @@
 ---
-// Page d'accueil du festival
+// Page d'accueil - Design fidele au site original
 import Layout from '../layouts/Layout.astro';
 import { artistesSorted } from '../../backend/backend.mjs';
 
-// On recupere les 3 premiers artistes pour les mettre en avant
-let artistesEnVedette = [];
+// On recupere les artistes pour la section
+let artistes = [];
 
 try {
   const allArtistes = await artistesSorted();
-  artistesEnVedette = allArtistes.slice(0, 3);
+  artistes = allArtistes.slice(0, 4);
 } catch (e) {
   console.error('Erreur chargement artistes:', e);
 }
 
-// Fonction pour l'URL de l'image
+// URL de l'image PocketBase
 function getImageUrl(artiste) {
   if (artiste.photo) {
     return `http://127.0.0.1:8090/api/files/artistes/${artiste.id}/${artiste.photo}`;
@@ -25,114 +25,124 @@ function getImageUrl(artiste) {
 <Layout>
   
   <!-- Hero Section -->
-  <section class="min-h-screen flex items-center justify-center px-6 text-center">
-    <div class="max-w-4xl">
-      <h1 class="font-mono text-5xl md:text-7xl font-bold text-white mb-6">
+  <section class="relative min-h-screen flex flex-col items-center justify-center px-6 text-center overflow-hidden bg-gradient-to-b from-[#2A1F5C] via-[#1A1A2E] to-[#1A1A2E]">
+    
+    <!-- Effet de fond -->
+    <div class="absolute inset-0 opacity-30">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-[#8b5cf6] rounded-full filter blur-[120px]"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-[#FDC700] rounded-full filter blur-[150px] opacity-20"></div>
+    </div>
+    
+    <div class="relative z-10 max-w-4xl">
+      <h1 class="courier-prime-bold text-4xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight">
         Les Rives du Territoire
       </h1>
-      <p class="text-xl md:text-2xl text-white/90 mb-4">
-        Festival de musique sur les berges de la Savoureuse
+      <p class="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+        Ensemble, vibrons au rythme du territoire
       </p>
-      <p class="text-[#FDC700] text-lg font-bold mb-8">
-        20 - 23 Decembre 2026 | Belfort
-      </p>
-      <div class="flex flex-wrap gap-4 justify-center">
-        <a 
-          href="/artistes" 
-          class="bg-[#FDC700] text-black px-8 py-3 rounded-lg font-bold hover:bg-[#FDC700]/90 transition-colors"
-        >
-          Voir les artistes
-        </a>
-        <a 
-          href="/festival" 
-          class="bg-white/10 text-white px-8 py-3 rounded-lg font-bold hover:bg-white/20 transition-colors"
-        >
-          En savoir plus
-        </a>
-      </div>
+      <a 
+        href="#billetterie" 
+        class="inline-block bg-[#FDC700] text-[#1A1A2E] px-8 py-4 rounded-full font-bold text-lg hover:bg-[#FDC700]/90 transition-all hover:scale-105"
+      >
+        Reserver vos billets
+      </a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
     </div>
   </section>
 
-  <!-- Artistes en vedette -->
-  <section class="py-16 px-6 bg-[#151A25]">
-    <div class="max-w-6xl mx-auto">
-      
-      <h2 class="text-3xl font-bold text-white text-center mb-3">
-        Artistes en vedette
-      </h2>
-      <p class="text-white/70 text-center mb-10">
-        Decouvrez quelques artistes de notre programmation
-      </p>
-
-      {artistesEnVedette.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {artistesEnVedette.map((artiste) => (
-            <a href={`/artistes/${artiste.id}`} class="group">
-              <article class="bg-[#21252D] rounded-xl overflow-hidden hover:scale-105 transition-transform">
-                <div class="h-48 overflow-hidden">
-                  <img 
-                    src={getImageUrl(artiste)} 
-                    alt={artiste.nom} 
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                </div>
-                <div class="p-4">
-                  <h3 class="text-white font-bold text-lg group-hover:text-[#FDC700] transition-colors">
-                    {artiste.nom}
-                  </h3>
-                </div>
-              </article>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <p class="text-white/50 text-center">
-          Artistes bientot annonces...
-        </p>
-      )}
-
-      <div class="text-center">
-        <a 
-          href="/artistes" 
-          class="inline-block bg-[#FDC700] text-black px-6 py-3 rounded-lg font-bold hover:bg-[#FDC700]/90 transition-colors"
-        >
-          Voir tous les artistes
-        </a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Infos pratiques -->
-  <section class="py-16 px-6">
-    <div class="max-w-6xl mx-auto">
-      
-      <h2 class="text-3xl font-bold text-white text-center mb-10">
-        Infos pratiques
-      </h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <!-- Timeline des dates -->
+  <section class="py-16 px-6 bg-[#1A1A2E]">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         
-        <article class="bg-[#151A25] p-6 rounded-xl text-center">
-          <div class="text-4xl mb-4">📅</div>
-          <h3 class="text-white font-bold text-lg mb-2">Dates</h3>
-          <p class="text-white/70">20 au 23 decembre 2026</p>
-        </article>
-
-        <article class="bg-[#151A25] p-6 rounded-xl text-center">
-          <div class="text-4xl mb-4">📍</div>
-          <h3 class="text-white font-bold text-lg mb-2">Lieu</h3>
-          <p class="text-white/70">Berges de la Savoureuse, Belfort</p>
-        </article>
-
-        <article class="bg-[#151A25] p-6 rounded-xl text-center">
-          <div class="text-4xl mb-4">🎵</div>
-          <h3 class="text-white font-bold text-lg mb-2">Scenes</h3>
-          <p class="text-white/70">Plusieurs scenes pour tous les styles</p>
-        </article>
+        <div class="bg-[#2A2A3E] rounded-xl p-6 text-center border border-white/10 hover:border-[#FDC700]/50 transition-colors">
+          <p class="text-[#FDC700] text-3xl md:text-4xl font-bold mb-2">20</p>
+          <p class="text-white/60 text-sm">decembre</p>
+          <p class="text-white text-sm mt-2">Ouverture des portes</p>
+        </div>
+        
+        <div class="bg-[#2A2A3E] rounded-xl p-6 text-center border border-white/10 hover:border-[#FDC700]/50 transition-colors">
+          <p class="text-[#FDC700] text-3xl md:text-4xl font-bold mb-2">21</p>
+          <p class="text-white/60 text-sm">decembre</p>
+          <p class="text-white text-sm mt-2">Jour 2 - Programme complet</p>
+        </div>
+        
+        <div class="bg-[#2A2A3E] rounded-xl p-6 text-center border border-white/10 hover:border-[#FDC700]/50 transition-colors">
+          <p class="text-[#FDC700] text-3xl md:text-4xl font-bold mb-2">22</p>
+          <p class="text-white/60 text-sm">decembre</p>
+          <p class="text-white text-sm mt-2">Jour 3 - Artistes phares</p>
+        </div>
+        
+        <div class="bg-[#2A2A3E] rounded-xl p-6 text-center border border-white/10 hover:border-[#FDC700]/50 transition-colors">
+          <p class="text-[#FDC700] text-3xl md:text-4xl font-bold mb-2">23</p>
+          <p class="text-white/60 text-sm">decembre</p>
+          <p class="text-white text-sm mt-2">Cloture du festival</p>
+        </div>
 
       </div>
+    </div>
+  </section>
 
+  <!-- Cartes de navigation -->
+  <section class="py-16 px-6 bg-[#1A1A2E]">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Carte Le Festival -->
+        <a href="/festival" class="group block bg-gradient-to-br from-[#432766] to-[#2A1F5C] rounded-2xl p-8 border border-white/10 hover:border-[#FDC700]/50 transition-all hover:scale-[1.02]">
+          <h2 class="text-2xl font-bold text-white mb-3 group-hover:text-[#FDC700] transition-colors">Le Festival</h2>
+          <p class="text-white/70 mb-4">Decouvrez l'histoire et les valeurs de Les Rives du Territoire</p>
+          <span class="inline-flex items-center text-[#FDC700] text-sm font-medium">
+            Decouvrir
+            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </span>
+        </a>
+
+        <!-- Carte Programme -->
+        <a href="/festival" class="group block bg-gradient-to-br from-[#432766] to-[#2A1F5C] rounded-2xl p-8 border border-white/10 hover:border-[#FDC700]/50 transition-all hover:scale-[1.02]">
+          <h2 class="text-2xl font-bold text-white mb-3 group-hover:text-[#FDC700] transition-colors">Programme</h2>
+          <p class="text-white/70 mb-4">Decouvrez le programme complet du festival avec tous les artistes et horaires</p>
+          <span class="inline-flex items-center text-[#FDC700] text-sm font-medium">
+            Decouvrir
+            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </span>
+        </a>
+
+        <!-- Carte Artistes -->
+        <a href="/artistes" class="group block bg-gradient-to-br from-[#432766] to-[#2A1F5C] rounded-2xl p-8 border border-white/10 hover:border-[#FDC700]/50 transition-all hover:scale-[1.02]">
+          <h2 class="text-2xl font-bold text-white mb-3 group-hover:text-[#FDC700] transition-colors">Les Artistes</h2>
+          <p class="text-white/70 mb-4">Decouvrez les talents qui animeront le festival</p>
+          <span class="inline-flex items-center text-[#FDC700] text-sm font-medium">
+            Decouvrir
+            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </span>
+        </a>
+
+        <!-- Carte Contact -->
+        <a href="#contact" class="group block bg-gradient-to-br from-[#432766] to-[#2A1F5C] rounded-2xl p-8 border border-white/10 hover:border-[#FDC700]/50 transition-all hover:scale-[1.02]">
+          <h2 class="text-2xl font-bold text-white mb-3 group-hover:text-[#FDC700] transition-colors">Contact</h2>
+          <p class="text-white/70 mb-4">Une question ? Contactez-nous</p>
+          <span class="inline-flex items-center text-[#FDC700] text-sm font-medium">
+            Decouvrir
+            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </span>
+        </a>
+
+      </div>
     </div>
   </section>
 

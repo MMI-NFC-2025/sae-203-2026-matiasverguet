@@ -1,21 +1,16 @@
 ---
-// Page dynamique pour un artiste
+// Page dynamique artiste - Design fidele au site original
 import Layout from '../../layouts/Layout.astro';
 import { artisteID, sceneID } from '../../../backend/backend.mjs';
 
-// On recupere l'id depuis l'URL
 const { id } = Astro.params;
 
-// Variables pour stocker les donnees
 let artiste = null;
 let scene = null;
 let erreur = null;
 
 try {
-  // On recupere l'artiste par son ID
   artiste = await artisteID(id);
-  
-  // Si l'artiste a une scene, on la recupere
   if (artiste.scene) {
     scene = await sceneID(artiste.scene);
   }
@@ -24,7 +19,7 @@ try {
   console.error(e);
 }
 
-// URL de l'image depuis PocketBase
+// URL de l'image
 const imageUrl = artiste?.photo 
   ? `http://127.0.0.1:8090/api/files/artistes/${artiste.id}/${artiste.photo}`
   : '/placeholder.jpg';
@@ -36,8 +31,14 @@ function formatDate(dateString) {
   return date.toLocaleDateString('fr-FR', {
     weekday: 'long',
     day: 'numeric',
-    month: 'long',
-    year: 'numeric',
+    month: 'long'
+  });
+}
+
+function formatTime(dateString) {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  return date.toLocaleTimeString('fr-FR', {
     hour: '2-digit',
     minute: '2-digit'
   });
@@ -45,74 +46,100 @@ function formatDate(dateString) {
 ---
 
 <Layout>
+  
   {erreur ? (
-    <!-- Message d'erreur -->
-    <section class="py-28 px-6 text-center">
-      <div class="max-w-4xl mx-auto">
+    <!-- Erreur -->
+    <section class="py-32 px-6 text-center bg-[#1A1A2E]">
+      <div class="max-w-xl mx-auto">
         <h1 class="text-3xl font-bold text-white mb-4">{erreur}</h1>
-        <a href="/artistes" class="text-[#FDC700] hover:underline">
-          Retour a la liste des artistes
-        </a>
-      </div>
-    </section>
-  ) : (
-    <!-- Contenu de l'artiste -->
-    <section class="py-28 px-6">
-      <div class="max-w-4xl mx-auto">
-
-        <!-- Bouton retour -->
-        <a href="/artistes" class="inline-flex items-center text-white/70 hover:text-white mb-8">
+        <a href="/artistes" class="inline-flex items-center text-[#FDC700] hover:underline">
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
           </svg>
           Retour aux artistes
         </a>
-
-        <!-- Carte principale -->
-        <div class="bg-[#151A25] rounded-2xl overflow-hidden">
-          
-          <!-- Image grande -->
-          <div class="h-64 md:h-96 overflow-hidden">
-            <img 
-              src={imageUrl} 
-              alt={artiste.nom} 
-              class="w-full h-full object-cover"
-            />
-          </div>
-
-          <!-- Infos -->
-          <div class="p-6 md:p-8">
-            
-            <!-- Nom -->
-            <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
-              {artiste.nom}
-            </h1>
-
-            <!-- Date et scene -->
-            <div class="flex flex-wrap gap-4 mb-6">
-              <div class="bg-[#FDC700] text-black px-4 py-2 rounded-lg font-medium">
-                {formatDate(artiste.date_representation)}
-              </div>
-              
-              {scene && (
-                <div class="bg-white/10 text-white px-4 py-2 rounded-lg">
-                  {scene.nom}
-                </div>
-              )}
-            </div>
-
-            <!-- Description -->
-            {artiste.description && (
-              <div class="text-white/80 leading-relaxed">
-                <h2 class="text-xl font-bold text-white mb-3">A propos</h2>
-                <p>{artiste.description}</p>
-              </div>
-            )}
-
-          </div>
-        </div>
-
       </div>
     </section>
+  ) : (
+    <!-- Contenu -->
+    <section class="relative bg-[#1A1A2E]">
+      
+      <!-- Header avec image de fond -->
+      <div class="relative h-[50vh] md:h-[60vh] overflow-hidden">
+        <img 
+          src={imageUrl} 
+          alt={artiste.nom} 
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-[#1A1A2E]/50 to-transparent"></div>
+        
+        <!-- Bouton retour -->
+        <a href="/artistes" class="absolute top-24 left-6 md:left-12 inline-flex items-center text-white/80 hover:text-white bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full transition-colors">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Retour
+        </a>
+      </div>
+
+      <!-- Infos de l'artiste -->
+      <div class="relative -mt-32 px-6 pb-16">
+        <div class="max-w-4xl mx-auto">
+          
+          <!-- Nom -->
+          <h1 class="courier-prime-bold text-4xl md:text-5xl lg:text-6xl text-white mb-6">
+            {artiste.nom}
+          </h1>
+
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-3 mb-8">
+            <span class="bg-[#FDC700] text-[#1A1A2E] px-4 py-2 rounded-full font-medium text-sm">
+              {formatDate(artiste.date_representation)}
+            </span>
+            
+            {formatTime(artiste.date_representation) && (
+              <span class="bg-white/10 text-white px-4 py-2 rounded-full text-sm">
+                {formatTime(artiste.date_representation)}
+              </span>
+            )}
+            
+            {scene && (
+              <span class="bg-[#432766] text-white px-4 py-2 rounded-full text-sm">
+                {scene.nom}
+              </span>
+            )}
+
+            {artiste.genre && (
+              <span class="bg-white/10 text-white/80 px-4 py-2 rounded-full text-sm">
+                {artiste.genre}
+              </span>
+            )}
+          </div>
+
+          <!-- Description -->
+          {artiste.description && (
+            <div class="bg-[#2A2A3E] rounded-2xl p-6 md:p-8 border border-white/10">
+              <h2 class="text-white font-bold text-xl mb-4">A propos de l'artiste</h2>
+              <p class="text-white/70 leading-relaxed">
+                {artiste.description}
+              </p>
+            </div>
+          )}
+
+          <!-- Lien retour -->
+          <div class="mt-8">
+            <a href="/artistes" class="inline-flex items-center text-[#FDC700] hover:underline font-medium">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+              Voir tous les artistes
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
   )}
+
 </Layout>

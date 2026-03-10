@@ -1,63 +1,52 @@
 ---
-// Composant carte d'artiste simple
-
-// On recoit l'artiste en prop
+// Composant carte d'artiste - Design fidele au site original
 const { artiste } = Astro.props;
 
-// URL de l'image depuis PocketBase
+// URL de l'image PocketBase
 const imageUrl = artiste.photo 
   ? `http://127.0.0.1:8090/api/files/artistes/${artiste.id}/${artiste.photo}`
   : '/placeholder.jpg';
 
 // Formater la date simplement
 function formatDate(dateString) {
-  if (!dateString) return 'Date a confirmer';
+  if (!dateString) return '';
   const date = new Date(dateString);
-  return date.toLocaleDateString('fr-FR', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
+  return `${date.getDate()} Decembre`;
 }
 ---
 
-<article class="bg-[#151A25] rounded-xl overflow-hidden hover:scale-105 transition-transform">
-  
-  <!-- Image de l'artiste -->
-  <a href={`/artistes/${artiste.id}`} class="block">
-    <div class="h-48 overflow-hidden">
+<a href={`/artistes/${artiste.id}`} class="group block">
+  <article class="relative bg-[#2A2A3E] rounded-xl overflow-hidden border border-white/10 hover:border-[#FDC700]/50 transition-all hover:scale-[1.02]">
+    
+    <!-- Image -->
+    <div class="aspect-square overflow-hidden">
       <img 
         src={imageUrl} 
         alt={artiste.nom} 
-        class="w-full h-full object-cover"
+        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
       />
+      <!-- Overlay gradient -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
     </div>
-  </a>
 
-  <!-- Infos de l'artiste -->
-  <div class="p-4">
-    <a href={`/artistes/${artiste.id}`}>
-      <h3 class="text-white font-bold text-lg hover:text-[#FDC700] transition-colors">
+    <!-- Contenu -->
+    <div class="absolute bottom-0 left-0 right-0 p-4">
+      <h3 class="text-white font-bold text-lg group-hover:text-[#FDC700] transition-colors mb-1">
         {artiste.nom}
       </h3>
-    </a>
-    
-    <p class="text-[#FDC700] text-sm mt-1">
-      {formatDate(artiste.date_representation)}
-    </p>
+      
+      <div class="flex items-center gap-2 text-sm">
+        {artiste.date_representation && (
+          <span class="text-[#FDC700]">{formatDate(artiste.date_representation)}</span>
+        )}
+        {artiste.genre && (
+          <>
+            <span class="text-white/30">-</span>
+            <span class="text-white/60">{artiste.genre}</span>
+          </>
+        )}
+      </div>
+    </div>
 
-    {artiste.description && (
-      <p class="text-white/70 text-sm mt-2 line-clamp-2">
-        {artiste.description}
-      </p>
-    )}
-
-    <a 
-      href={`/artistes/${artiste.id}`}
-      class="inline-block mt-3 text-sm text-[#FDC700] hover:underline"
-    >
-      Voir plus
-    </a>
-  </div>
-
-</article>
+  </article>
+</a>
