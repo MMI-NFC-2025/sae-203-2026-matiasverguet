@@ -1,0 +1,184 @@
+---
+import Layout from "../layouts/Layout.astro"
+import loc from "../assets/icons/mail.svg"
+---
+
+<Layout>
+  	<!-- Banner under header -->
+	<section class="w-full bg-[#151A25]">
+		<div class="max-w-6xl mx-auto px-4 py-12 text-center">
+			<h2 class="text-white text-4xl md:text-5xl font-bold courier-prime-bold">Infos Pratiques</h2>
+			<p class="text-white/80 mt-4 text-lg md:text-xl">Toutes les informations pour préparer votre venue</p>
+		</div>
+	</section>
+	
+	<!-- Tarifs & Billetterie cards -->
+	<section class="bg-white py-16">
+		<div class="max-w-6xl mx-auto px-6 py-10 text-center">
+			<h3 class="text-[#151A25] text-2xl font-bold courier-prime-bold mb-8">Tarifs & Billetterie</h3>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<!-- Card A -->
+				<div class="bg-[#151A25] rounded-2xl p-8 text-center shadow-md">
+					<p class="text-white/70 mt-6 text-sm">Pass 1 Jour</p>
+					<p class="text-[#FDC700] text-4xl md:text-4xl font-bold mb-8 md:mb-8">45€</p>
+					<ul class="text-white/70 text-sm space-y-6 mb-8">
+						<li>Accès à toutes les scènes</li>
+						<li>1 jour au choix</li>
+						<li>Entrée et sortie libres</li>
+					</ul>
+					<a href="#" class="inline-block bg-[#432766] text-white px-10 py-4 rounded-full mb-8" style="background-color:var(--color-purple)">Acheter</a>
+				</div>
+				<!-- Card B (highlighted) -->
+				<div class="bg-[#151A25] rounded-2xl p-8 text-center shadow-md ring-4 ring-yellow-400/40">
+					<p class="text-white/70 mt-6 text-sm">Pass 4 Jours</p>
+					<p class="text-[#FDC700] text-4xl md:text-4xl font-bold mb-8 md:mb-8">120€</p>
+					<ul class="text-white/70 text-sm space-y-6 mb-8">
+						<li>Accès à toutes les scènes</li>
+						<li>Tous les jours du festival</li>
+						<li>Entrée et sortie libres</li>
+						<li>Bracelet souvenir</li>
+					</ul>
+					<a href="#" class="inline-block bg-[#432766] text-white px-10 py-4 rounded-full mb-8" style="background-color:var(--color-purple)">Acheter</a>
+				</div>
+				<!-- Card C -->
+				<div class="bg-[#151A25] rounded-2xl p-8 text-center shadow-md">
+					<p class="text-white/70 mt-6 text-sm">Pass VIP</p>
+					<p class="text-[#FDC700] text-4xl md:text-4xl font-bold mb-8 md:mb-8">250€</p>
+					<ul class="text-white/70 text-sm space-y-6 mb-8">
+						<li>Tous les avantages Pass 4 Jours</li>
+						<li>Accès zone VIP</li>
+						<li>Rencontre avec artistes</li>
+						<li>Goodies exclusifs</li>
+					</ul>
+					<a href="#" class="inline-block bg-[#432766] text-white px-10 py-4 rounded-full mb-8" style="background-color:var(--color-purple)">Acheter</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Hébergements -->
+	<section class="bg-[#21252D] py-20">
+		<div class="max-w-6xl mx-auto px-6 text-center">
+			<h3 class="text-white text-2xl font-bold courier-prime-bold mb-10">Hébergements</h3>
+			<div class="grid grid-cols-1 md:grid-cols-3 mb-10 gap-8">
+				<div class="bg-[#151A25] rounded-lg p-6 text-left shadow-md">
+					<p class="text-white/70 text-sm font-semibold">Camping du Festival</p>
+					<p class="text-white/70 mt-4 text-sm">Profitez de notre camping officiel situé à 5 minutes à pied du site du festival. Sanitaires, douches chaudes et food trucks sur place.</p>
+					<p class="text-[#FDC700] font-bold mt-6">20€ / nuit</p>
+				</div>
+
+				<div class="bg-[#151A25] rounded-lg p-6 text-left shadow-md">
+					<p class="text-white/70 text-sm font-semibold">Hôtels Partenaires</p>
+					<p class="text-white/70 mt-4 text-sm">Bénéficiez de tarifs préférentiels dans nos hôtels partenaires à Belfort. Navettes gratuites vers le festival.</p>
+					<p class="text-[#FDC700] font-bold mt-6">À partir de 65€ / nuit</p>
+				</div>
+
+				<div class="bg-[#151A25] rounded-lg p-6 text-left shadow-md">
+					<p class="text-white/70 text-sm font-semibold">Locations Saisonnières</p>
+					<p class="text-white/70 mt-4 text-sm">Découvrez notre sélection d'appartements et maisons à louer à proximité du festival.</p>
+					<p class="text-[#FDC700] font-bold mt-6">Tarifs variables</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Comment venir -->
+	<section class="bg-white py-20 mt-32"           >
+		<div class="max-w-6xl mx-auto px-6 text-center">
+			<h3 class="text-[#151A25] text-2xl font-bold courier-prime-bold mb-10">Comment venir</h3>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<div class="flex flex-col items-center px-6">
+					<div class="w-16 h-16 mx-auto rounded-lg overflow-hidden bg-gradient-to-br from-pink-500 to-red-400 mb-4">
+						<img src={loc.src} alt="Localisation" class="w-full h-full object-cover" />
+					</div>
+					<p class="text-sm font-bold">En Train</p>
+					<p class="text-sm text-[#333] mt-4">Gare de Belfort à 10 minutes en navette gratuite du festival. TGV directs depuis Paris (2h30), Lyon (2h) et Strasbourg (1h30).</p>
+				</div>
+
+				<div class="flex flex-col items-center px-6">
+					<div class="w-16 h-16 mx-auto rounded-lg overflow-hidden bg-gradient-to-br from-pink-500 to-red-400 mb-4">
+						<img src={loc.src} alt="Localisation" class="w-full h-full object-cover" />
+					</div>
+					<p class="text-sm font-bold">En Voiture</p>
+					<p class="text-sm text-[#333] mt-4">Parkings gratuits disponibles. Suivre direction "Berges de la Savoureuse". Covoiturage encouragé avec places réservées.</p>
+				</div>
+
+				<div class="flex flex-col items-center px-6">
+					<div class="w-16 h-16 mx-auto rounded-lg overflow-hidden bg-gradient-to-br from-pink-500 to-red-400 mb-4">
+						<img src={loc.src} alt="Localisation" class="w-full h-full object-cover" />
+					</div>
+					<p class="text-sm font-bold">Navettes</p>
+					<p class="text-sm text-[#333] mt-4">Navettes gratuites depuis la gare, le centre-ville et les hôtels partenaires. Circulation toutes les 15 minutes.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+    <!-- Questions Fréquentes -->
+	<section class="bg-white py-20 ">
+		<div class="max-w-6xl mx-auto px-6 text-center">
+			<h3 class="text-[#151A25] text-2xl font-bold courier-prime-bold mb-10">Questions Fréquentes</h3>
+			<div class="max-w-3xl mx-auto text-left">
+				<style>
+					details > summary { list-style: none; }
+					details > summary::-webkit-details-marker { display: none; }
+					.summary-icon { color: #FDC700; font-weight: 700; }
+					details { background: #151A25; color: #fff; border-radius: 8px; padding: 0.75rem 1rem; }
+					details[open] { box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+					details + details { margin-top: 1rem; }
+					summary { cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; font-weight: 700; }
+					.summary-content { margin-top: 0.5rem; color: rgba(255,255,255,0.8); }
+				</style>
+				
+				<details>
+					<summary>
+						<span>Puis-je apporter ma propre nourriture et boissons ?</span>
+						<span class="summary-icon">+</span>
+					</summary>
+					<div class="summary-content">Oui, vous pouvez apporter votre nourriture. Les boissons alcoolisées sont interdites. De nombreux stands de restauration et bars sont disponibles sur place.</div>
+				</details>
+				
+				<details>
+					<summary>
+						<span>Le festival est-il accessible aux personnes à mobilité réduite ?</span>
+						<span class="summary-icon">+</span>
+					</summary>
+					<div class="summary-content">Oui, le site dispose d'installations et d'accès adaptés. Contactez notre équipe pour des besoins spécifiques.</div>
+				</details>
+				
+				<details>
+					<summary>
+						<span>Puis-je venir avec des enfants ?</span>
+						<span class="summary-icon">+</span>
+					</summary>
+					<div class="summary-content">Les enfants sont les bienvenus. Les mineurs doivent être accompagnés d'un adulte responsable.</div>
+				</details>
+				
+				<details>
+					<summary>
+						<span>Que faire si je perds mon bracelet ?</span>
+						<span class="summary-icon">+</span>
+					</summary>
+					<div class="summary-content">Rendez-vous au point information/accueil pour assistance. Des frais peuvent s'appliquer pour le remplacement.</div>
+				</details>
+				
+				<details>
+					<summary>
+						<span>Y a-t-il un service de consigne ?</span>
+						<span class="summary-icon">+</span>
+					</summary>
+					<div class="summary-content">Oui, une consigne est disponible sur le site (horaires et tarifs affichés sur place).</div>
+				</details>
+				
+				<script>
+					document.querySelectorAll('details').forEach(d => {
+						d.addEventListener('toggle', () => {
+							const icon = d.querySelector('.summary-icon');
+							if (!icon) return;
+							icon.textContent = d.open ? '×' : '+';
+						});
+					});
+				</script>
+			</div>
+		</div>
+	</section>
+
+
+</Layout>

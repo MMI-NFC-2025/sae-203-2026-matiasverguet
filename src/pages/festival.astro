@@ -1,6 +1,116 @@
 --- 
 import Layout from '../layouts/Layout.astro';
+import creativiteIcon from '../assets/icons/créativité.svg';
+import durabiliteIcon from '../assets/icons/durabillité.svg';
+import proximiteIcon from '../assets/icons/proximité.svg';
+
 ---
 <Layout>
-  <h1>Le Festival</h1>
-  <p>Voici les informations sur le festival.</p>
+  	<!-- Banner under header -->
+	<section class="w-full bg-[#151A25]">
+		<div class="max-w-6xl mx-auto px-4 py-12 text-center">
+			<h2 class="text-white text-4xl md:text-5xl font-bold courier-prime-bold">Le Festival</h2>
+			<p class="text-white/80 mt-4 text-lg md:text-xl">Découvrez l'histoire et les valeurs de Les Rives du Territoire</p>
+		</div>
+	</section>
+	<!-- Notre Histoire -->
+	<section class="bg-white py-16">
+		<div class="max-w-6xl mx-auto px-6">
+			<h2 class="text-2xl font-bold courier-prime-bold text-[#151A25]">Notre Histoire</h2>
+			<div class="mt-6 text-[#374151] space-y-6">
+				<p>
+					Créé en 2020, le festival Les Rives du Territoire est né de la volonté de célébrer la diversité
+					culturelle et musicale de notre région. Installé sur les berges de la Savoureuse à Belfort,
+					notre festival est devenu un rendez-vous incontournable pour les amateurs de musique et
+					de culture urbaine.
+				</p>
+				<p>
+					Chaque année, nous accueillons des milliers de festivaliers venus découvrir des artistes
+					émergents et confirmés dans une ambiance unique et conviviale. Notre objectif est de créer
+					un espace de partage et de découverte où la musique transcende les frontières.
+				</p>
+			</div>
+
+			<!-- Image card -->
+			<div class="mt-10 overflow-hidden rounded-2xl shadow-lg">
+				<img src={"/src/assets/img/notrehistoire1.avif"} alt="Notre histoire" class="w-full h-128 md:h-200 object-cover" />
+			</div>
+		</div>
+	</section>
+
+	<!-- Notre Équipe -->
+	<section class="py-16 px-4 bg-[#151A25]">
+		<div class="max-w-6xl mx-auto text-center">
+			<h2 class="text-white text-2xl font-bold courier-prime-bold tracking-[.25em] uppercase">Notre Équipe</h2>
+			<p class="text-white/70 mt-2 mb-8">Une équipe passionnée au service de votre expérience festivalière</p>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<!-- Card 1 -->
+				<div class="bg-transparent rounded-2xl overflow-hidden shadow-sm">
+					<img src={"/src/assets/img/mariedubois.avif"} alt="Marie Dubois" class="w-full h-56 object-cover rounded-t-2xl" />
+					<div class="bg-[#21252D] border border-white/5 p-6 text-left">
+						<p class="text-white text-sm font-bold courier-prime-bold">Marie Dubois</p>
+						<p class="text-[#FDC700] text-xs mt-2">Directrice Artistique</p>
+						<p class="text-white/70 text-xs mt-3">Passionnée de musique depuis toujours, Marie orchestre la programmation artistique du festival.</p>
+					</div>
+				</div>
+				<!-- Card 2 -->
+				<div class="bg-transparent rounded-2xl overflow-hidden shadow-sm">
+					<img src={"/src/assets/img/jeanmartin1.avif"} alt="Jean Martin" class="w-full h-56 object-cover rounded-t-2xl" />
+					<div class="bg-[#21252D] border border-white/5 p-6 text-left">
+						<p class="text-white text-sm font-bold courier-prime-bold">Jean Martin</p>
+						<p class="text-[#FDC700] text-xs mt-2">Directeur Technique</p>
+						<p class="text-white/70 text-xs mt-3">Expert en sonorisation, Jean assure la qualité technique de chaque performance.</p>
+					</div>
+				</div>
+				<!-- Card 3 -->
+				<div class="bg-transparent rounded-2xl overflow-hidden shadow-sm">
+					<img src={"/src/assets/img/sophiebernard.avif"} alt="Sophie Bernard" class="w-full h-56 object-cover rounded-t-2xl" />
+					<div class="bg-[#21252D] border border-white/5 p-6 text-left">
+						<p class="text-white text-sm font-bold courier-prime-bold">Sophie Bernard</p>
+						<p class="text-[#FDC700] text-xs mt-2">Responsable Production</p>
+						<p class="text-white/70 text-xs mt-3">Sophie coordonne l'ensemble de la logistique pour garantir le bon déroulement de l'événement.</p>
+					</div>
+				</div>
+				<!-- Card 4 (centered on md) -->
+				<div class="bg-transparent rounded-2xl overflow-hidden shadow-sm">
+					<img src={"/src/assets/img/jeanpetit.avif"} alt="Lucas Petit" class="w-full h-56 object-cover rounded-t-2xl" />
+					<div class="bg-[#21252D] border border-white/5 p-6 text-left">
+						<p class="text-white text-sm font-bold courier-prime-bold">Lucas Petit</p>
+						<p class="text-[#FDC700] text-xs mt-2">Responsable Communication</p>
+						<p class="text-white/70 text-xs mt-3">Lucas développe la notoriété du festival et assure la relation avec le public.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Valeurs -->
+	<section class="py-16 bg-white">
+		<div class="max-w-6xl mx-auto px-6">
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+				<div>
+					<div class="w-16 h-16 mx-auto rounded-lg overflow-hidden bg-gradient-to-br from-pink-500 to-red-400 mb-4">
+						<img src={creativiteIcon.src} alt="Créativité" class="w-full h-full object-cover" />
+					</div>
+					<h3 class="text-lg font-bold courier-prime-bold mb-2">Créativité</h3>
+					<p class="text-sm text-gray-600">Encourager l'expression artistique sous toutes ses formes, mettre en avant les jeunes talents locaux et émergents.</p>
+				</div>
+				<div>
+					<div class="w-16 h-16 mx-auto rounded-lg flex items-center justify-center bg-green-600 mb-4">
+						<img src={durabiliteIcon.src} alt="Durabilité" class="w-full h-full object-cover" />
+					</div>
+					<h3 class="text-lg font-bold courier-prime-bold mb-2">Éco-responsabilité</h3>
+					<p class="text-sm text-gray-600">Notre engagement pour l'environnement : tri des déchets, gobelets réutilisables et partenariats locaux.</p>
+				</div>
+				<div>
+					<div class="w-16 h-16 mx-auto rounded-lg flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 mb-4">
+						<img src={proximiteIcon.src} alt="Proximité" class="w-full h-full object-cover" />
+					</div>
+					<h3 class="text-lg font-bold courier-prime-bold mb-2">Convivialité</h3>
+					<p class="text-sm text-gray-600">Nous créons un espace de partage et de rencontre où règnent bienveillance et respect mutuel.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</Layout>
