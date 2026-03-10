@@ -1,10 +1,115 @@
----
+--- 
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import heroImg from '../assets/img/hero.avif';
+import festivalImg from '../assets/img/leFestival_fond.avif';
+import ProgImg from '../assets/img/programe_fond.avif';
+import ArtImg from '../assets/img/lesArtistes_fond.avif';
+import ContactImg from '../assets/img/contact_fond.avif';
 ---
-
 <Layout>
-	<h1>Welcome to Astro!</h1>
+	<!-- Hero -->
+	<section class="relative w-full min-h-screen flex flex-col items-center justify-start text-center overflow-hidden">
+		<!-- Background -->
+		<img src={heroImg.src} alt="" class="absolute inset-0 w-full h-full object-cover z-0" />
+		<div class="absolute inset-0 bg-black/30 z-0"></div>
+
+		<!-- Content -->
+		<div class="relative z-10 px-4 max-w-4xl mx-auto flex flex-col items-center gap-6 pt-8" style="padding-top:80px !important;">
+			<h1 class="font-bold tracking-[.25em] uppercase courier-prime-bold" style="color:#ffffff; font-weight:900; font-size:clamp(1.5rem,2vw,5.5rem); line-height:1;">
+				Les Rives du Territoire
+			</h1>
+			<p class="text-lg md:text-xl" style="color:#ffffff; opacity:0.9;">
+				Ensemble, vibrons au rythme du territoire
+			</p>
+			<a href="#" class="inline-block text-lg px-16 py-4 rounded-full transition-colors" style="color:#ffffff; background:#2A1F5C; min-width:220px; min-height:52px; text-align:center; margin:20px 0; display:inline-flex; align-items:center; justify-content:center;">
+				Réserver vos billets
+			</a>
+		</div>
+
+		<!-- Date cards (centered small squares) -->
+		<div class="relative z-10 mt-0 grid grid-cols-2 gap-6 md:gap-10 max-w-[720px] mx-auto justify-center" style="column-gap:48px; row-gap:40px; padding:0 24px;">
+			<div class="bg-[#151A25] border border-white/10 rounded-2xl flex flex-col items-center justify-center w-44 h-30 md:w-56 md:h-25 px-4 py-4">
+				<p class="text-[#FDC700] font-bold text-lg">20 décembre</p>
+            <p class="text-sm text-white/80 mt-2">Ouverture des portes</p>
+			</div>
+			<div class="bg-[#151A25] border border-white/10 rounded-2xl flex flex-col items-center justify-center w-44 h-30 md:w-56 md:h-25 px-4 py-4">
+				<p class="text-[#FDC700] font-bold text-lg">22 décembre</p>
+				<p class="text-sm text-white/80 mt-2">Jour 3 - Artistes phares</p>
+			</div>
+			<div class="bg-[#151A25] border border-white/10 rounded-2xl flex flex-col items-center justify-center w-44 h-30 md:w-56 md:h-25 px-4 py-4">
+				<p class="text-[#FDC700] font-bold text-lg">21 décembre</p>
+				<p class="text-sm text-white/80 mt-2">Jour 2 - Programme complet</p>
+			</div>
+			<div class="bg-[#151A25] border border-white/10 rounded-2xl flex flex-col items-center justify-center w-44 h-30 md:w-56 md:h-25 px-4 py-4">
+				<p class="text-[#FDC700] font-bold text-lg">23 décembre</p>
+				<p class="text-sm text-white/80 mt-2">Clôture du festival</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section Cards -->
+	<section class="py-16 px-4">
+		<div class="max-w-6xl mx-auto flex flex-col gap-10">
+			<!-- Card Le Festival -->
+			<div class="bg-[#151A25] border border-white/10 rounded-4xl overflow-hidden">
+				<img src={festivalImg.src} alt="Le Festival" class="w-full h-64 object-cover" />
+				<div class="p-6">
+					<h2 class="text-white text-2xl font-bold courier-prime-bold">Le Festival</h2>
+					<p class="text-white/70 text-sm mt-2">Découvrez l'histoire et les valeurs de Les Rives du Territoire</p>
+					<a href="/festival" class="inline-block mt-4 text-purple-400 hover:text-purple-300 transition-colors">Découvrir →</a>
+				</div>
+			</div>
+            <div class="bg-[#151A25] border border-white/10 rounded-4xl overflow-hidden">
+				<img src={ProgImg.src} alt="programme" class="w-full h-64 object-cover" />
+				<div class="p-6">
+					<h2 class="text-white text-2xl font-bold courier-prime-bold">Programme</h2>
+					<p class="text-white/70 text-sm mt-2">Découvrez le programme complet du festival avec tous les artistes et horaires</p>
+					<a href="/festival" class="inline-block mt-4 text-purple-400 hover:text-purple-300 transition-colors">Découvrir →</a>
+				</div>
+			</div>
+            <div class="bg-[#151A25] border border-white/10 rounded-4xl overflow-hidden">
+				<img src={ArtImg.src} alt="Les Artistes" class="w-full h-64 object-cover" />
+				<div class="p-6">
+					<h2 class="text-white text-2xl font-bold courier-prime-bold">Les Artistes</h2>
+					<p class="text-white/70 text-sm mt-2">Découvrez les talents qui animeront le festival</p>
+					<a href="/artistes" class="inline-block mt-4 text-purple-400 hover:text-purple-300 transition-colors">Découvrir →</a>
+				</div>
+			</div>
+            <div class="bg-[#151A25] border border-white/10 rounded-4xl overflow-hidden">
+				<img src={ContactImg.src} alt="Le Festival" class="w-full h-64 object-cover" />
+				<div class="p-6">
+					<h2 class="text-white text-2xl font-bold courier-prime-bold">Contact</h2>
+					<p class="text-white/70 text-sm mt-2">Une question ? Contactez-nous</p>
+					<a href="/festival" class="inline-block mt-4 text-purple-400 hover:text-purple-300 transition-colors">Découvrir →</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section Partenaires -->
+	<section class="py-16 px-4">
+		<div class="max-w-6xl mx-auto">
+			<h2 class="text-white text-1xl font-bold courier-prime-bold tracking-[.25em] uppercase text-center mb-10">Nos Partenaires</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+				<div class="bg-[#1A1A2E] border border-white/10 rounded-2xl flex items-center justify-center py-4 px-4">
+					<p class="text-white font-bold courier-prime-bold text-sm md:text-base">Belfort Tourisme</p>
+				</div>
+				<div class="bg-[#1A1A2E] border border-white/10 rounded-2xl flex items-center justify-center py-4 px-4">
+					<p class="text-white font-bold courier-prime-bold text-sm md:text-base">Région Bourgogne-Franche-Comté</p>
+				</div>
+				<div class="bg-[#1A1A2E] border border-white/10 rounded-2xl flex items-center justify-center py-4 px-4">
+					<p class="text-white font-bold courier-prime-bold text-sm md:text-base">Ville de Belfort</p>
+				</div>
+				<div class="bg-[#1A1A2E] border border-white/10 rounded-2xl flex items-center justify-center py-4 px-4">
+					<p class="text-white font-bold courier-prime-bold text-sm md:text-base">Savoureuse Evènements</p>
+				</div>
+				<div class="bg-[#1A1A2E] border border-white/10 rounded-2xl flex items-center justify-center py-4 px-4">
+					<p class="text-white font-bold courier-prime-bold text-sm md:text-base">Musique local</p>
+				</div>
+				<div class="bg-[#1A1A2E] border border-white/10 rounded-2xl flex items-center justify-center py-4 px-4">
+					<p class="text-white font-bold courier-prime-bold text-sm md:text-base">Urban Culture</p>
+				</div>
+			</div>
+		</div>
+	</section>
 </Layout>
