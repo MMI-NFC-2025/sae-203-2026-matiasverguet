@@ -1,1 +1,62 @@
-@import "tailwindcss";
+@import "tailwindcss/preflight";
+
+@tailwind utilities;
+
+@layer components {
+  /* Courier Prime - Regular */
+  .courier-prime-regular {
+    font-family: "Courier Prime", monospace;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  /* Courier Prime - Bold */
+  .courier-prime-bold {
+    font-family: "Courier Prime", monospace;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  /* Courier Prime - Regular Italic */
+  .courier-prime-regular-italic {
+    font-family: "Courier Prime", monospace;
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  /* Courier Prime - Bold Italic */
+  .courier-prime-bold-italic {
+    font-family: "Courier Prime", monospace;
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  /* Roboto - Regular */
+  .roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+  }
+}
+
+/* Variables globales (optionnel, si tu en as besoin pour ton Header) */
+:root {
+  --color-white: #ffffff;
+  --color-black: #21252D;
+
+  --color-darkBlue: #2A1F5C;
+  --color-yellow: #FDC700;
+  --color-blackCard: #151A25;
+  --color-purple: #432766;
+  --color-purpleDark: #1A1A2E;
+  --color-purpleLight: #2A2A3E;
+  --color-gray: #989592;
+  --color-purpleCta: #8b5cf6;
+}
+
+/* Set global page background to project's dark color */
+body {
+  background: var(--color-black);
+}

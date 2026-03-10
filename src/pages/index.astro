@@ -1,10 +1,213 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import hero from '../assets/img/hero.avif';
+import cardFestival from '../assets/img/leFestival_fond.avif';
+import cardProgramme from '../assets/img/programe_fond.avif';
+import cardArtistes from '../assets/img/lesArtistes_fond.avif';
+import cardContact from '../assets/img/contact_fond.avif';
+import arrow from '../assets/icons/fleche_btn.svg';
+import CardIndex from '../components/CardIndex.astro';
 ---
 
 <Layout>
-	<h1>Welcome to Astro!</h1>
+  <section class="hero">
+    <div class="hero__background">
+      <img src={hero.src} alt="Foule en concert au festival Les Rives du Territoire" class="hero__background-image" />
+    </div>
+
+    <div class="hero__content">
+      <h1 class="hero__title">Les Rives du Territoire</h1>
+      <p class="hero__subtitle">Ensemble, vibrons au rythme du territoire</p>
+
+      <a href="/404" class="button button--primary">Réserver vos billets</a>
+
+      <div class="hero__events">
+        <div class="hero__event hero__event--highlighted">
+          <h3 class="hero__event-date">20 décembre</h3>
+          <p class="hero__event-description">Ouverture des portes</p>
+        </div>
+
+        <div class="hero__event">
+          <h3 class="hero__event-date">22 décembre</h3>
+          <p class="hero__event-description">Jour 3 - Artistes phares</p>
+        </div>
+
+        <div class="hero__event">
+          <h3 class="hero__event-date">21 décembre</h3>
+          <p class="hero__event-description">Jour 2 - Programme complet</p>
+        </div>
+
+        <div class="hero__event">
+          <h3 class="hero__event-date">23 décembre</h3>
+          <p class="hero__event-description">Clôture du festival</p>
+        </div>
+      </div>
+    </div>
+  </section>
+<div class="card_index">
+  <CardIndex title="Le Festival" description="Découvrez l'histoire et les valeurs de Les Rives du Territoire" img={cardFestival} href="/festival" />
+  <CardIndex title="Programme" description="Découvrez le programme complet du festival avec tous les artistes et horaires" img={cardProgramme} href="/programme" />
+  <CardIndex title="Les Artistes" description="Découvrez les talents qui animeront le festival" img={cardArtistes} href="/artistes" />
+  <CardIndex title="Contact" description="Une question ? Contactez-nous" img={cardContact} href="/contact" />
+</div>
+  <!-- partenaires -->
+  <section class="partenaire">
+    <div class="partenaire__container">
+      <h2 class="partenaire__title">NOS PARTENAIRES</h2>
+      <div class="partenaire__grid">
+        <div class="partenaire__card"><p class="partenaire__card-text">Belfort Tourisme</p></div>
+        <div class="partenaire__card"><p class="partenaire__card-text">Région Bourgogne-Franche-Comté</p></div>
+        <div class="partenaire__card"><p class="partenaire__card-text">Ville de Belfort</p></div>
+        <div class="partenaire__card"><p class="partenaire__card-text">Savoureuse Evènements</p></div>
+        <div class="partenaire__card"><p class="partenaire__card-text">Musique local</p></div>
+        <div class="partenaire__card"><p class="partenaire__card-text">Urban Culture</p></div>
+      </div>
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: calc(100vh - var(--header-height));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero__background-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 1rem 1.25rem;
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  .hero__title {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0em;
+    font-size: clamp(1.25rem, 2.5vw, 3.5rem);
+    margin: 0 0 0rem;
+  }
+
+  .hero__subtitle {
+    margin: 0 0 1.5rem;
+    color: rgba(255,255,255,0.95);
+    font-size: 1.1rem;
+  }
+
+  .button--primary {
+    display: inline-block;
+    background: #32245a; /* deep purple */
+    color: #fff;
+    padding: 0.9rem 3rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: none;
+  }
+
+  .hero__events {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(150px, 250px));
+    gap: 1.5rem 2rem;
+    justify-content: center;
+  }
+
+  .hero__event {
+    background: var(--color-blackCard);
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    border: 2px solid var(--color-purple);
+    text-align: center;
+    color: rgba(255,255,255);
+  }
+
+  .hero__event-date {
+    margin: 0 0 0.5rem;
+    color: #f6c400; /* yellow */
+    font-weight: 700;
+  }
+
+  .hero__event-description { margin: 0; font-size: 0.85rem; color: rgba(255,255,255); }
+
+  .card_index {
+	margin: 2.5rem auto;
+	gap: 2.5rem;
+  }
+  @media (max-width: 800px) {
+    .hero__events { grid-template-columns: 1fr; gap: 1rem; }
+    .hero__title { font-size: 2rem; margin-bottom: 100rem; }
+  }
+
+  /* Partenaires - layout and card styles */
+  .partenaire {
+    padding: 3.5rem 1rem 6rem;
+    background: transparent;
+  }
+
+  .partenaire__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .partenaire__title {
+    text-align: center;
+    color: var(--color-white);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    margin: 0 0 2.25rem;
+    text-transform: uppercase;
+  }
+
+  .partenaire__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem 2.5rem;
+    align-items: stretch;
+  }
+
+  .partenaire__card {
+    background: var(--color-purpleDark);
+    border-radius: 14px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-purpleLight);
+    min-height: 64px;
+  }
+
+  .partenaire__card-text {
+    color: var(--color-white);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .partenaire__grid { grid-template-columns: 1fr; gap: 1rem; }
+    .partenaire { padding-top: 2.5rem; }
+  }
+
+</style>
+

@@ -1,0 +1,177 @@
+---
+import Layout from '../layouts/Layout.astro';
+import notrehistoire from '../assets/img/notrehistoire1.avif';
+import mariedubois from '../assets/img/mariedubois.avif';
+import jeanmartin from '../assets/img/jeanmartin1.avif';
+import sophiebernard from '../assets/img/sophiebernard.avif';
+import jeanpetit from '../assets/img/jeanpetit.avif';
+---
+
+<Layout>
+  <!-- Page Header -->
+  <section class="py-28 px-6 text-center bg-transparent">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="font-mono text-4xl md:text-5xl font-bold text-white mb-2">Le Festival</h1>
+      <p class="text-white/90 text-lg md:text-xl">Découvrez l'histoire et les valeurs de Les Rives du Territoire</p>
+    </div>
+  </section>
+
+  <!-- Historique Section (white background, left text) -->
+  <section class="bg-white text-black py-16 px-6">
+    <div class="max-w-6xl mx-auto">
+      <article class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div>
+          <h2 class="text-2xl font-bold mb-6">Notre Histoire</h2>
+          <div class="prose prose-lg max-w-none text-left">
+            <p>Créé en 2020, le festival Les Rives du Territoire est né de la volonté de célébrer la diversité culturelle et musicale de notre région. Installé sur les magnifiques berges de la Savoureuse à Belfort, notre festival est devenu un rendez-vous incontournable pour les amateurs de musique et de culture urbaine.</p>
+
+            <p>Chaque année, nous accueillons des milliers de festivaliers venus découvrir des artistes émergents et confirmés dans une ambiance unique et conviviale. Notre objectif est de créer un espace de partage et de découverte où la musique transcende les frontières.</p>
+          </div>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden bg-gray-100 shadow-lg">
+          <img src={notrehistoire.src} alt="Public du festival sur les berges" class="w-full h-80 object-cover" />
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Equipe Section (dark) -->
+  <section class="bg-[#15171b] text-white py-16 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl font-bold text-center mb-3">Notre Équipe</h2>
+      <p class="text-center text-white/90 mb-8">Une équipe passionnée au service de votre expérience festivalière</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <article class="bg-[#121417] rounded-xl overflow-hidden">
+          <div class="h-56 overflow-hidden">
+            <img src={mariedubois.src} alt="Marie Dubois" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold">Marie Dubois</h3>
+            <p class="text-[#f6c400]">Directrice Artistique</p>
+            <p class="text-white/90 mt-2 text-sm">Passionnée de musique depuis toujours, Marie orchestre la programmation artistique du festival.</p>
+          </div>
+        </article>
+
+        <article class="bg-[#121417] rounded-xl overflow-hidden">
+          <div class="h-56 overflow-hidden">
+            <img src={jeanmartin.src} alt="Jean Martin" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold">Jean Martin</h3>
+            <p class="text-[#f6c400]">Directeur Technique</p>
+            <p class="text-white/90 mt-2 text-sm">Expert en sonorisation, Jean assure la qualité technique de chaque performance.</p>
+          </div>
+        </article>
+
+        <article class="bg-[#121417] rounded-xl overflow-hidden">
+          <div class="h-56 overflow-hidden">
+            <img src={sophiebernard.src} alt="Sophie Bernard" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold">Sophie Bernard</h3>
+            <p class="text-[#f6c400]">Responsable Production</p>
+            <p class="text-white/90 mt-2 text-sm">Sophie coordonne l'ensemble de la logistique pour garantir le bon déroulement de l'événement.</p>
+          </div>
+        </article>
+
+        <article class="bg-[#121417] rounded-xl overflow-hidden">
+          <div class="h-56 overflow-hidden">
+            <img src={jeanpetit.src} alt="Lucas Petit" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold">Lucas Petit</h3>
+            <p class="text-[#f6c400]">Responsable Communication</p>
+            <p class="text-white/90 mt-2 text-sm">Lucas développe la notoriété du festival et assure la relation avec le public.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Charte Section -->
+  <section class="py-12 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl font-bold text-center mb-6">Notre Charte & Valeurs</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <article class="text-center p-4">
+          <h3 class="font-bold mb-2">Créativité</h3>
+          <p class="text-sm text-gray-700">Encourager l'expression artistique sous toutes ses formes, mettre en avant les jeunes talents locaux et émergents.</p>
+        </article>
+
+        <article class="text-center p-4">
+          <h3 class="font-bold mb-2">Éco-responsabilité</h3>
+          <p class="text-sm text-gray-700">Notre engagement pour l'environnement se traduit par des actions concrètes : tri des déchets, gobelets réutilisables, et partenaires locaux.</p>
+        </article>
+
+        <article class="text-center p-4">
+          <h3 class="font-bold mb-2">Convivialité</h3>
+          <p class="text-sm text-gray-700">Nous créons un espace de partage et de rencontre où règnent bienveillance et respect mutuel.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="cta__container">
+      <h2 class="cta__title">Rejoignez l'aventure</h2>
+      <div class="cta__description">
+        <p class="cta__text">Vivez une expérience unique sur les Rives du Territoire du 20 au 23 décembre 2026</p>
+      </div>
+      <a href="/404" class="button button--cta">Acheter vos billets maintenant</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* Page Header */
+  .page-header{ background-color: transparent; padding: 6rem 1.5rem 2.5rem; text-align:center }
+  .page-header__container{ max-width:1100px; margin:0 auto }
+  .page-header__title{ font-family: 'Courier New', Courier, monospace; font-size:2.25rem; font-weight:700; color:var(--color-white); margin-bottom:0.5rem }
+  .page-header__subtitle{ color:rgba(255,255,255,0.9); font-size:1.05rem }
+
+  /* Festival Section */
+  .festival-section{ padding:0.5rem 1.25rem; background:transparent }
+  .festival-section--dark{ background:var(--color-blackCard); }
+  .festival-section__container{ max-width:1100px; margin:0 auto }
+  .festival-section__title{ color:var(--color-white); text-align:center; margin-bottom:1rem; font-weight:700 }
+  .festival-section__intro{ color:rgba(255,255,255,0.9); text-align:center; margin-bottom:2rem }
+
+  .festival-article{ display:grid; grid-template-columns: 1fr; gap:1.5rem; margin-bottom:2.5rem }
+  .festival-article__title{ font-size:1.5rem; color:var(--color-white); margin:0 0 0.75rem }
+  .festival-article__text{ color: rgba(255,255,255,0.9); margin-bottom:1rem }
+    .festival-article__content { text-align: left; }
+  .festival-article__image{ border-radius:10px; overflow:hidden }
+  .festival-article__img{ width:100%; height:auto; display:block }
+
+  /* Style the festival section immediately after the page header to appear on white */
+.festival-section {
+    background: var(--color-white);
+    color: var(--color-black);
+    padding-top: 4rem;
+    padding-bottom: 4.5rem;
+  }
+
+.festival-section .festival-article__title {
+    color: var(--color-black);
+    font-size: 1.6rem;
+  }
+
+.festival-section .festival-article__text {
+    color: var(--color-black);
+    line-height: 1.8;
+    text-align: left;
+    }
+
+.festival-section .festival-article__image {
+    background: #f6f8fb;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(15,17,20,0.08);
+    overflow: hidden;
+    margin-top: 2.5rem;
+  }
+
+</Layout>
