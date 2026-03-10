@@ -1,0 +1,55 @@
+---
+// Page liste des artistes
+import Layout from '../../layouts/Layout.astro';
+import ArtisteCard from '../../components/ArtisteCard.astro';
+import { artistesSorted } from '../../../backend/backend.mjs';
+
+// On recupere tous les artistes tries par date
+let artistes = [];
+let erreur = null;
+
+try {
+  artistes = await artistesSorted();
+} catch (e) {
+  erreur = "Impossible de charger les artistes. Verifiez que PocketBase est lance.";
+  console.error(e);
+}
+---
+
+<Layout>
+  <!-- Titre de la page -->
+  <section class="py-28 px-6 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="font-mono text-4xl md:text-5xl font-bold text-white mb-2">
+        Les Artistes
+      </h1>
+      <p class="text-white/90 text-lg">
+        Decouvrez la programmation du festival
+      </p>
+    </div>
+  </section>
+
+  <!-- Liste des artistes -->
+  <section class="px-6 pb-16">
+    <div class="max-w-6xl mx-auto">
+
+      {erreur && (
+        <div class="bg-red-500/20 border border-red-500 text-red-200 p-4 rounded-lg text-center">
+          {erreur}
+        </div>
+      )}
+
+      {artistes.length === 0 && !erreur && (
+        <p class="text-white/70 text-center">Aucun artiste trouve.</p>
+      )}
+
+      <!-- Grille des artistes -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {artistes.map((artiste) => (
+          <ArtisteCard artiste={artiste} />
+        ))}
+      </div>
+
+    </div>
+  </section>
+</Layout>

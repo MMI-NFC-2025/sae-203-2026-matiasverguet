@@ -1,0 +1,139 @@
+---
+// Page d'accueil du festival
+import Layout from '../layouts/Layout.astro';
+import { artistesSorted } from '../../backend/backend.mjs';
+
+// On recupere les 3 premiers artistes pour les mettre en avant
+let artistesEnVedette = [];
+
+try {
+  const allArtistes = await artistesSorted();
+  artistesEnVedette = allArtistes.slice(0, 3);
+} catch (e) {
+  console.error('Erreur chargement artistes:', e);
+}
+
+// Fonction pour l'URL de l'image
+function getImageUrl(artiste) {
+  if (artiste.photo) {
+    return `http://127.0.0.1:8090/api/files/artistes/${artiste.id}/${artiste.photo}`;
+  }
+  return '/placeholder.jpg';
+}
+---
+
+<Layout>
+  
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center justify-center px-6 text-center">
+    <div class="max-w-4xl">
+      <h1 class="font-mono text-5xl md:text-7xl font-bold text-white mb-6">
+        Les Rives du Territoire
+      </h1>
+      <p class="text-xl md:text-2xl text-white/90 mb-4">
+        Festival de musique sur les berges de la Savoureuse
+      </p>
+      <p class="text-[#FDC700] text-lg font-bold mb-8">
+        20 - 23 Decembre 2026 | Belfort
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a 
+          href="/artistes" 
+          class="bg-[#FDC700] text-black px-8 py-3 rounded-lg font-bold hover:bg-[#FDC700]/90 transition-colors"
+        >
+          Voir les artistes
+        </a>
+        <a 
+          href="/festival" 
+          class="bg-white/10 text-white px-8 py-3 rounded-lg font-bold hover:bg-white/20 transition-colors"
+        >
+          En savoir plus
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artistes en vedette -->
+  <section class="py-16 px-6 bg-[#151A25]">
+    <div class="max-w-6xl mx-auto">
+      
+      <h2 class="text-3xl font-bold text-white text-center mb-3">
+        Artistes en vedette
+      </h2>
+      <p class="text-white/70 text-center mb-10">
+        Decouvrez quelques artistes de notre programmation
+      </p>
+
+      {artistesEnVedette.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {artistesEnVedette.map((artiste) => (
+            <a href={`/artistes/${artiste.id}`} class="group">
+              <article class="bg-[#21252D] rounded-xl overflow-hidden hover:scale-105 transition-transform">
+                <div class="h-48 overflow-hidden">
+                  <img 
+                    src={getImageUrl(artiste)} 
+                    alt={artiste.nom} 
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-white font-bold text-lg group-hover:text-[#FDC700] transition-colors">
+                    {artiste.nom}
+                  </h3>
+                </div>
+              </article>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="text-white/50 text-center">
+          Artistes bientot annonces...
+        </p>
+      )}
+
+      <div class="text-center">
+        <a 
+          href="/artistes" 
+          class="inline-block bg-[#FDC700] text-black px-6 py-3 rounded-lg font-bold hover:bg-[#FDC700]/90 transition-colors"
+        >
+          Voir tous les artistes
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Infos pratiques -->
+  <section class="py-16 px-6">
+    <div class="max-w-6xl mx-auto">
+      
+      <h2 class="text-3xl font-bold text-white text-center mb-10">
+        Infos pratiques
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <article class="bg-[#151A25] p-6 rounded-xl text-center">
+          <div class="text-4xl mb-4">📅</div>
+          <h3 class="text-white font-bold text-lg mb-2">Dates</h3>
+          <p class="text-white/70">20 au 23 decembre 2026</p>
+        </article>
+
+        <article class="bg-[#151A25] p-6 rounded-xl text-center">
+          <div class="text-4xl mb-4">📍</div>
+          <h3 class="text-white font-bold text-lg mb-2">Lieu</h3>
+          <p class="text-white/70">Berges de la Savoureuse, Belfort</p>
+        </article>
+
+        <article class="bg-[#151A25] p-6 rounded-xl text-center">
+          <div class="text-4xl mb-4">🎵</div>
+          <h3 class="text-white font-bold text-lg mb-2">Scenes</h3>
+          <p class="text-white/70">Plusieurs scenes pour tous les styles</p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+</Layout>

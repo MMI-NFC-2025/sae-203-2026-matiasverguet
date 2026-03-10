@@ -1,0 +1,63 @@
+---
+// Composant carte d'artiste simple
+
+// On recoit l'artiste en prop
+const { artiste } = Astro.props;
+
+// URL de l'image depuis PocketBase
+const imageUrl = artiste.photo 
+  ? `http://127.0.0.1:8090/api/files/artistes/${artiste.id}/${artiste.photo}`
+  : '/placeholder.jpg';
+
+// Formater la date simplement
+function formatDate(dateString) {
+  if (!dateString) return 'Date a confirmer';
+  const date = new Date(dateString);
+  return date.toLocaleDateString('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+}
+---
+
+<article class="bg-[#151A25] rounded-xl overflow-hidden hover:scale-105 transition-transform">
+  
+  <!-- Image de l'artiste -->
+  <a href={`/artistes/${artiste.id}`} class="block">
+    <div class="h-48 overflow-hidden">
+      <img 
+        src={imageUrl} 
+        alt={artiste.nom} 
+        class="w-full h-full object-cover"
+      />
+    </div>
+  </a>
+
+  <!-- Infos de l'artiste -->
+  <div class="p-4">
+    <a href={`/artistes/${artiste.id}`}>
+      <h3 class="text-white font-bold text-lg hover:text-[#FDC700] transition-colors">
+        {artiste.nom}
+      </h3>
+    </a>
+    
+    <p class="text-[#FDC700] text-sm mt-1">
+      {formatDate(artiste.date_representation)}
+    </p>
+
+    {artiste.description && (
+      <p class="text-white/70 text-sm mt-2 line-clamp-2">
+        {artiste.description}
+      </p>
+    )}
+
+    <a 
+      href={`/artistes/${artiste.id}`}
+      class="inline-block mt-3 text-sm text-[#FDC700] hover:underline"
+    >
+      Voir plus
+    </a>
+  </div>
+
+</article>
