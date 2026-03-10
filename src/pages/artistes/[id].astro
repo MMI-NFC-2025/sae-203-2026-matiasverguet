@@ -1,0 +1,228 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { artisteID, sceneID } from '../../../backend/backend.mjs';
+
+const { id } = Astro.params;
+
+let artiste = null;
+let scene = null;
+
+try {
+  artiste = await artisteID(id);
+  if (artiste?.scene) {
+    scene = await sceneID(artiste.scene);
+  }
+} catch (error) {
+  return Astro.redirect('/artistes');
+}
+
+if (!artiste) {
+  return Astro.redirect('/artistes');
+}
+
+const pbUrl = 'http://127.0.0.1:8090';
+
+function getImageUrl(record, field) {
+  if (!record[field]) return null;
+  return `${pbUrl}/api/files/${record.collectionId}/${record.id}/${record[field]}`;
+}
+
+function getGalleryUrls(record) {
+  if (!record.galerie_photos || record.galerie_photos.length === 0) return [];
+  return record.galerie_photos.map(photo => 
+    `${pbUrl}/api/files/${record.collectionId}/${record.id}/${photo}`
+  );
+}
+
+const mainImage = getImageUrl(artiste, 'photo_principal');
+const galleryImages = getGalleryUrls(artiste);
+
+const dateFormatted = artiste.date_representation 
+  ? new Date(artiste.date_representation).toLocaleDateString('fr-FR', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    })
+  : null;
+
+const timeFormatted = artiste.date_representation 
+  ? new Date(artiste.date_representation).toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  : null;
+---
+
+<Layout>
+  <!-- Back Button -->
+  <section class="pt-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <a href="/artistes" class="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Retour aux artistes
+      </a>
+    </div>
+  </section>
+
+  <!-- Artist Header -->
+  <section class="py-12 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        <!-- Image -->
+        <div class="relative">
+          {mainImage ? (
+            <img src={mainImage} alt={artiste.nom} class="w-full aspect-square object-cover rounded-2xl shadow-2xl" />
+          ) : (
+            <div class="w-full aspect-square bg-[#1A1A2E] rounded-2xl flex items-center justify-center">
+              <svg class="w-32 h-32 text-white/20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+            </div>
+          )}
+        </div>
+        
+        <!-- Info -->
+        <div class="lg:sticky lg:top-24">
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 font-mono">{artiste.nom}</h1>
+          
+          <div class="flex flex-wrap gap-3 mb-6">
+            {artiste.genre_musical && (
+              <span class="bg-[#2A1F5C] text-white px-4 py-2 rounded-full font-medium">
+                {artiste.genre_musical}
+              </span>
+            )}
+            {scene && (
+              <a href={`/scenes/${scene.id}`} class="bg-[#151A25] text-[#FDC700] px-4 py-2 rounded-full font-medium border border-[#432766] hover:bg-[#1A1A2E] transition-colors">
+                {scene.nom_scene}
+              </a>
+            )}
+          </div>
+          
+          <!-- Date and Time -->
+          {dateFormatted && (
+            <div class="bg-[#151A25] rounded-xl p-6 mb-6 border border-[#2A2A3E]">
+              <h3 class="text-[#FDC700] font-bold text-lg mb-2">Date de representation</h3>
+              <p class="text-white text-xl capitalize">{dateFormatted}</p>
+              {timeFormatted && (
+                <p class="text-white/70 text-lg mt-1">a {timeFormatted}</p>
+              )}
+            </div>
+          )}
+          
+          <!-- Description -->
+          {artiste.description && (
+            <div class="mb-8">
+              <h3 class="text-white font-bold text-xl mb-4">Biographie</h3>
+              <p class="text-white/80 leading-relaxed whitespace-pre-line">{artiste.description}</p>
+            </div>
+          )}
+          
+          <!-- Scene Link -->
+          {scene && (
+            <a href={`/scenes/${scene.id}`} class="inline-flex items-center gap-2 bg-[#432766] text-white px-6 py-3 rounded-full font-bold hover:bg-[#5a3a8a] transition-colors">
+              Voir la scene {scene.nom_scene}
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  {galleryImages.length > 0 && (
+    <section class="py-12 px-6 bg-[#151A25]">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-2xl font-bold text-white mb-8 font-mono">Galerie photos</h2>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {galleryImages.map((img, index) => (
+            <button class="gallery-item overflow-hidden rounded-xl aspect-square cursor-pointer hover:opacity-90 transition-opacity" data-index={index}>
+              <img src={img} alt={`${artiste.nom} - Photo ${index + 1}`} class="w-full h-full object-cover" />
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-black/95 z-50 hidden items-center justify-center p-4">
+    <button id="lightbox-close" class="absolute top-4 right-4 text-white/70 hover:text-white p-2">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    <button id="lightbox-prev" class="absolute left-4 text-white/70 hover:text-white p-2">
+      <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+    </button>
+    <img id="lightbox-image" src="" alt="" class="max-w-full max-h-[85vh] object-contain" />
+    <button id="lightbox-next" class="absolute right-4 text-white/70 hover:text-white p-2">
+      <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </button>
+  </div>
+</Layout>
+
+<script define:vars={{ galleryImages }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxPrev = document.getElementById('lightbox-prev');
+    const lightboxNext = document.getElementById('lightbox-next');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    let currentIndex = 0;
+    
+    function showImage(index) {
+      if (index < 0) index = galleryImages.length - 1;
+      if (index >= galleryImages.length) index = 0;
+      currentIndex = index;
+      lightboxImage.src = galleryImages[currentIndex];
+    }
+    
+    function openLightbox(index) {
+      showImage(index);
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeLightbox() {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+    
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const index = parseInt(item.dataset.index);
+        openLightbox(index);
+      });
+    });
+    
+    lightboxClose?.addEventListener('click', closeLightbox);
+    lightboxPrev?.addEventListener('click', () => showImage(currentIndex - 1));
+    lightboxNext?.addEventListener('click', () => showImage(currentIndex + 1));
+    
+    lightbox?.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    
+    document.addEventListener('keydown', (e) => {
+      if (lightbox?.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+      if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+    });
+  });
+</script>

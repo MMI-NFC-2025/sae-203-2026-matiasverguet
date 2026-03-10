@@ -1,0 +1,241 @@
+---
+import Layout from '../layouts/Layout.astro';
+import mail from '../assets/icons/mail.svg';
+import telephone from '../assets/icons/telephone.svg';
+import facebook from '../assets/icons/facebook.svg';
+import instagram from '../assets/icons/instagram.svg';
+import xicon from '../assets/icons/x.svg';
+import youtube from '../assets/icons/youtube.svg';
+---
+
+<Layout>
+  <!-- Page Header -->
+  <section class="py-28 px-6 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="font-mono text-4xl md:text-5xl font-bold text-white mb-2">Contact</h1>
+      <p class="text-white/90 text-lg md:text-xl">Une question ? N'hesitez pas a nous contacter</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="px-6 pb-16">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Contact Form -->
+        <div class="bg-[#151A25] rounded-2xl p-8 border border-[#2A2A3E]">
+          <h2 class="text-2xl font-bold text-white mb-6 font-mono">Envoyez-nous un message</h2>
+          
+          <form id="contact-form" class="space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="prenom" class="block text-white/80 mb-2 text-sm font-medium">Prenom</label>
+                <input 
+                  type="text" 
+                  id="prenom" 
+                  name="prenom" 
+                  required
+                  class="w-full bg-[#21252D] border border-[#2A2A3E] rounded-lg px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-[#432766] transition-colors"
+                  placeholder="Votre prenom"
+                />
+              </div>
+              <div>
+                <label for="nom" class="block text-white/80 mb-2 text-sm font-medium">Nom</label>
+                <input 
+                  type="text" 
+                  id="nom" 
+                  name="nom" 
+                  required
+                  class="w-full bg-[#21252D] border border-[#2A2A3E] rounded-lg px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-[#432766] transition-colors"
+                  placeholder="Votre nom"
+                />
+              </div>
+            </div>
+            
+            <div>
+              <label for="email" class="block text-white/80 mb-2 text-sm font-medium">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required
+                class="w-full bg-[#21252D] border border-[#2A2A3E] rounded-lg px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-[#432766] transition-colors"
+                placeholder="votre@email.com"
+              />
+            </div>
+            
+            <div>
+              <label for="sujet" class="block text-white/80 mb-2 text-sm font-medium">Sujet</label>
+              <select 
+                id="sujet" 
+                name="sujet" 
+                required
+                class="w-full bg-[#21252D] border border-[#2A2A3E] rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#432766] transition-colors"
+              >
+                <option value="">Selectionnez un sujet</option>
+                <option value="billetterie">Billetterie</option>
+                <option value="programmation">Programmation</option>
+                <option value="partenariat">Partenariat</option>
+                <option value="presse">Presse / Media</option>
+                <option value="benevole">Devenir benevole</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="message" class="block text-white/80 mb-2 text-sm font-medium">Message</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="5" 
+                required
+                class="w-full bg-[#21252D] border border-[#2A2A3E] rounded-lg px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-[#432766] transition-colors resize-none"
+                placeholder="Votre message..."
+              ></textarea>
+            </div>
+            
+            <button 
+              type="submit" 
+              class="w-full bg-[#432766] text-white py-4 px-6 rounded-full font-bold hover:bg-[#5a3a8a] transition-colors flex items-center justify-center gap-2"
+            >
+              Envoyer le message
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </button>
+          </form>
+          
+          <!-- Success Message -->
+          <div id="success-message" class="hidden mt-6 bg-green-900/30 border border-green-500/50 rounded-lg p-4 text-center">
+            <svg class="w-12 h-12 text-green-500 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <p class="text-green-400 font-medium">Message envoye avec succes !</p>
+            <p class="text-green-400/70 text-sm mt-1">Nous vous repondrons dans les plus brefs delais.</p>
+          </div>
+        </div>
+        
+        <!-- Contact Info -->
+        <div class="space-y-8">
+          <!-- Quick Contact -->
+          <div class="bg-[#151A25] rounded-2xl p-8 border border-[#2A2A3E]">
+            <h2 class="text-2xl font-bold text-white mb-6 font-mono">Coordonnees</h2>
+            
+            <div class="space-y-6">
+              <a href="mailto:contact@lesrivesduterritoire.fr" class="flex items-center gap-4 group">
+                <div class="w-12 h-12 bg-[#432766] rounded-full flex items-center justify-center group-hover:bg-[#5a3a8a] transition-colors">
+                  <img src={mail.src} alt="" class="w-5 h-5" />
+                </div>
+                <div>
+                  <p class="text-white/60 text-sm">Email</p>
+                  <p class="text-white group-hover:text-[#FDC700] transition-colors">contact@lesrivesduterritoire.fr</p>
+                </div>
+              </a>
+              
+              <a href="tel:+33384123456" class="flex items-center gap-4 group">
+                <div class="w-12 h-12 bg-[#432766] rounded-full flex items-center justify-center group-hover:bg-[#5a3a8a] transition-colors">
+                  <img src={telephone.src} alt="" class="w-5 h-5" />
+                </div>
+                <div>
+                  <p class="text-white/60 text-sm">Telephone</p>
+                  <p class="text-white group-hover:text-[#FDC700] transition-colors">+33 3 84 12 34 56</p>
+                </div>
+              </a>
+              
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-[#432766] rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-white/60 text-sm">Adresse</p>
+                  <p class="text-white">Berges de la Savoureuse</p>
+                  <p class="text-white/70">90000 Belfort, France</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Social Media -->
+          <div class="bg-[#151A25] rounded-2xl p-8 border border-[#2A2A3E]">
+            <h2 class="text-2xl font-bold text-white mb-6 font-mono">Suivez-nous</h2>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <a href="https://www.facebook.com" target="_blank" rel="noopener" class="flex items-center gap-3 bg-[#21252D] rounded-xl p-4 border border-[#2A2A3E] hover:border-[#432766] transition-colors group">
+                <img src={facebook.src} alt="Facebook" class="w-6 h-6 opacity-70 group-hover:opacity-100 transition-opacity" />
+                <span class="text-white/80 group-hover:text-white transition-colors">Facebook</span>
+              </a>
+              
+              <a href="https://www.instagram.com" target="_blank" rel="noopener" class="flex items-center gap-3 bg-[#21252D] rounded-xl p-4 border border-[#2A2A3E] hover:border-[#432766] transition-colors group">
+                <img src={instagram.src} alt="Instagram" class="w-6 h-6 opacity-70 group-hover:opacity-100 transition-opacity" />
+                <span class="text-white/80 group-hover:text-white transition-colors">Instagram</span>
+              </a>
+              
+              <a href="https://www.x.com" target="_blank" rel="noopener" class="flex items-center gap-3 bg-[#21252D] rounded-xl p-4 border border-[#2A2A3E] hover:border-[#432766] transition-colors group">
+                <img src={xicon.src} alt="X" class="w-6 h-6 opacity-70 group-hover:opacity-100 transition-opacity" />
+                <span class="text-white/80 group-hover:text-white transition-colors">X (Twitter)</span>
+              </a>
+              
+              <a href="https://www.youtube.com" target="_blank" rel="noopener" class="flex items-center gap-3 bg-[#21252D] rounded-xl p-4 border border-[#2A2A3E] hover:border-[#432766] transition-colors group">
+                <img src={youtube.src} alt="YouTube" class="w-6 h-6 opacity-70 group-hover:opacity-100 transition-opacity" />
+                <span class="text-white/80 group-hover:text-white transition-colors">YouTube</span>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Office Hours -->
+          <div class="bg-[#151A25] rounded-2xl p-8 border border-[#2A2A3E]">
+            <h2 class="text-2xl font-bold text-white mb-6 font-mono">Horaires d'ouverture</h2>
+            
+            <div class="space-y-3">
+              <div class="flex justify-between">
+                <span class="text-white/70">Lundi - Vendredi</span>
+                <span class="text-white font-medium">9h00 - 18h00</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-white/70">Samedi</span>
+                <span class="text-white font-medium">10h00 - 16h00</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-white/70">Dimanche</span>
+                <span class="text-white/50">Ferme</span>
+              </div>
+            </div>
+            
+            <p class="text-white/50 text-sm mt-4">* Pendant le festival, nos equipes sont disponibles sur place.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    const successMessage = document.getElementById('success-message');
+    
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Simulate form submission
+      const button = form.querySelector('button[type="submit"]');
+      if (button) {
+        button.innerHTML = `
+          <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Envoi en cours...
+        `;
+        button.disabled = true;
+      }
+      
+      setTimeout(() => {
+        form.classList.add('hidden');
+        successMessage?.classList.remove('hidden');
+      }, 1500);
+    });
+  });
+</script>

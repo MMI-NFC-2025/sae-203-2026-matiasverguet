@@ -2,17 +2,36 @@
 import '../styles/global.css';
 import Header from '../components/header.astro';
 import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Les Rives du Territoire - Festival de musique a Belfort",
+  description = "Festival de musique Les Rives du Territoire. Du 20 au 23 decembre 2026 sur les berges de la Savoureuse a Belfort. Decouvrez notre programmation, artistes et informations pratiques."
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<meta name="description" content={description} />
+		<meta name="theme-color" content="#21252D" />
+		
+		<!-- Open Graph -->
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="fr_FR" />
+		
+		<title>{title}</title>
 	</head>
 	<body>
 		<style>

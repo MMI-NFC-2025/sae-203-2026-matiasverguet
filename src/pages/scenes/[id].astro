@@ -1,0 +1,173 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { sceneID, allartistebysceneId } from '../../../backend/backend.mjs';
+
+const { id } = Astro.params;
+
+let scene = null;
+let artistes = [];
+
+try {
+  scene = await sceneID(id);
+  artistes = await allartistebysceneId(id);
+} catch (error) {
+  return Astro.redirect('/scenes');
+}
+
+if (!scene) {
+  return Astro.redirect('/scenes');
+}
+
+const pbUrl = 'http://127.0.0.1:8090';
+
+function getImageUrl(record, field) {
+  if (!record[field]) return null;
+  return `${pbUrl}/api/files/${record.collectionId}/${record.id}/${record[field]}`;
+}
+
+const sceneImage = getImageUrl(scene, 'photo_scene');
+---
+
+<Layout>
+  <!-- Hero Section with Scene Image -->
+  <section class="relative min-h-[50vh] flex items-end">
+    {sceneImage ? (
+      <img src={sceneImage} alt={scene.nom_scene} class="absolute inset-0 w-full h-full object-cover" />
+    ) : (
+      <div class="absolute inset-0 bg-gradient-to-br from-[#2A1F5C] to-[#432766]"></div>
+    )}
+    <div class="absolute inset-0 bg-gradient-to-t from-[#21252D] via-[#21252D]/50 to-transparent"></div>
+    
+    <div class="relative z-10 w-full px-6 pb-12 pt-32">
+      <div class="max-w-6xl mx-auto">
+        <a href="/scenes" class="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-6">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Retour aux scenes
+        </a>
+        
+        <h1 class="text-4xl md:text-6xl font-bold text-white font-mono mb-4">{scene.nom_scene}</h1>
+        
+        <div class="flex flex-wrap gap-6">
+          {scene.capacite && (
+            <div class="flex items-center gap-2 text-white/90 bg-black/30 px-4 py-2 rounded-full backdrop-blur-sm">
+              <svg class="w-5 h-5 text-[#FDC700]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+              <span>{scene.capacite} places</span>
+            </div>
+          )}
+          {scene.localisation && (
+            <div class="flex items-center gap-2 text-white/90 bg-black/30 px-4 py-2 rounded-full backdrop-blur-sm">
+              <svg class="w-5 h-5 text-[#FDC700]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              <span>{scene.localisation}</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Description -->
+  {scene.description && (
+    <section class="py-12 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-[#151A25] rounded-2xl p-8 border border-[#2A2A3E]">
+          <h2 class="text-2xl font-bold text-white mb-4 font-mono">A propos de cette scene</h2>
+          <p class="text-white/80 leading-relaxed text-lg whitespace-pre-line">{scene.description}</p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Artists on this Scene -->
+  <section class="py-12 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl font-bold text-white mb-8 font-mono">
+        Artistes sur cette scene 
+        <span class="text-[#FDC700]">({artistes.length})</span>
+      </h2>
+      
+      {artistes.length > 0 ? (
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {artistes.map((artiste) => {
+            const imageUrl = getImageUrl(artiste, 'photo_principal');
+            const date = artiste.date_representation 
+              ? new Date(artiste.date_representation).toLocaleDateString('fr-FR', { 
+                  weekday: 'short',
+                  day: 'numeric', 
+                  month: 'short' 
+                })
+              : null;
+            const time = artiste.date_representation 
+              ? new Date(artiste.date_representation).toLocaleTimeString('fr-FR', { 
+                  hour: '2-digit', 
+                  minute: '2-digit' 
+                })
+              : null;
+            
+            return (
+              <a href={`/artistes/${artiste.id}`} class="group">
+                <article class="bg-[#151A25] rounded-xl overflow-hidden border border-[#2A2A3E] transition-all hover:border-[#432766] hover:shadow-lg hover:shadow-purple-900/20">
+                  <div class="h-48 overflow-hidden relative">
+                    {imageUrl ? (
+                      <img src={imageUrl} alt={artiste.nom} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    ) : (
+                      <div class="w-full h-full bg-[#1A1A2E] flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white/20" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                      </div>
+                    )}
+                    {(date || time) && (
+                      <div class="absolute top-3 right-3 bg-[#432766]/90 text-white px-3 py-1.5 rounded-lg text-sm">
+                        {date && <span class="font-bold capitalize">{date}</span>}
+                        {time && <span class="text-white/80 ml-1">- {time}</span>}
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div class="p-5">
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-[#FDC700] transition-colors">
+                      {artiste.nom}
+                    </h3>
+                    
+                    {artiste.genre_musical && (
+                      <span class="text-xs bg-[#2A1F5C] text-white/80 px-2 py-1 rounded">
+                        {artiste.genre_musical}
+                      </span>
+                    )}
+                  </div>
+                </article>
+              </a>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="text-center py-12 bg-[#151A25] rounded-2xl border border-[#2A2A3E]">
+          <svg class="w-16 h-16 text-white/20 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+          </svg>
+          <p class="text-white/60 text-lg">Aucun artiste n'est encore programme sur cette scene.</p>
+          <p class="text-white/40 mt-2">Revenez bientot !</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Back to Scenes -->
+  <section class="py-8 px-6">
+    <div class="max-w-6xl mx-auto text-center">
+      <a href="/scenes" class="inline-flex items-center gap-2 bg-[#432766] text-white px-6 py-3 rounded-full font-bold hover:bg-[#5a3a8a] transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Voir toutes les scenes
+      </a>
+    </div>
+  </section>
+</Layout>

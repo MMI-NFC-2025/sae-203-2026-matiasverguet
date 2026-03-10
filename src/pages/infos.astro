@@ -1,0 +1,257 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <!-- Page Header -->
+  <section class="py-28 px-6 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="font-mono text-4xl md:text-5xl font-bold text-white mb-2">Informations Pratiques</h1>
+      <p class="text-white/90 text-lg md:text-xl">Tout ce que vous devez savoir pour profiter du festival</p>
+    </div>
+  </section>
+
+  <!-- Quick Info Cards -->
+  <section class="px-6 pb-12">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-[#151A25] rounded-2xl p-6 border border-[#2A2A3E] text-center">
+          <div class="w-16 h-16 bg-[#432766] rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-[#FDC700]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Dates</h3>
+          <p class="text-[#FDC700] font-bold text-lg">20 - 23 decembre 2026</p>
+          <p class="text-white/60 mt-2">4 jours de festivites</p>
+        </div>
+        
+        <div class="bg-[#151A25] rounded-2xl p-6 border border-[#2A2A3E] text-center">
+          <div class="w-16 h-16 bg-[#432766] rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-[#FDC700]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Lieu</h3>
+          <p class="text-[#FDC700] font-bold text-lg">Berges de la Savoureuse</p>
+          <p class="text-white/60 mt-2">Belfort, France</p>
+        </div>
+        
+        <div class="bg-[#151A25] rounded-2xl p-6 border border-[#2A2A3E] text-center">
+          <div class="w-16 h-16 bg-[#432766] rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-[#FDC700]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Horaires</h3>
+          <p class="text-[#FDC700] font-bold text-lg">14h00 - 02h00</p>
+          <p class="text-white/60 mt-2">Ouverture des portes</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Access Section -->
+  <section class="px-6 py-12 bg-[#151A25]">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl font-bold text-white mb-8 font-mono text-center">Comment venir ?</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-[#21252D] rounded-xl p-6 border border-[#2A2A3E]">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-[#2A1F5C] rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-white">En train</h3>
+          </div>
+          <p class="text-white/70 text-sm">Gare de Belfort-Montbeliard TGV puis navette gratuite jusqu'au site du festival.</p>
+        </div>
+        
+        <div class="bg-[#21252D] rounded-xl p-6 border border-[#2A2A3E]">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-[#2A1F5C] rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-white">En voiture</h3>
+          </div>
+          <p class="text-white/70 text-sm">Parkings gratuits a proximite du site. Suivez les panneaux "Festival Les Rives".</p>
+        </div>
+        
+        <div class="bg-[#21252D] rounded-xl p-6 border border-[#2A2A3E]">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-[#2A1F5C] rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-white">Covoiturage</h3>
+          </div>
+          <p class="text-white/70 text-sm">Partagez vos trajets sur notre page Facebook ou BlaBlaCar.</p>
+        </div>
+        
+        <div class="bg-[#21252D] rounded-xl p-6 border border-[#2A2A3E]">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-[#2A1F5C] rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-white">Bus</h3>
+          </div>
+          <p class="text-white/70 text-sm">Lignes de bus speciales depuis le centre-ville de Belfort.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tickets Section -->
+  <section class="px-6 py-12">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl font-bold text-white mb-8 font-mono text-center">Billetterie</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-[#151A25] rounded-2xl p-8 border border-[#2A2A3E] text-center relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-[#2A2A3E]"></div>
+          <h3 class="text-xl font-bold text-white mb-2">Pass 1 Jour</h3>
+          <p class="text-4xl font-bold text-[#FDC700] mb-4">35 EUR</p>
+          <ul class="text-white/70 text-sm space-y-2 mb-6">
+            <li>Acces a toutes les scenes</li>
+            <li>Valable pour 1 journee</li>
+            <li>Espace restauration</li>
+          </ul>
+          <a href="#" class="block bg-[#432766] text-white py-3 px-6 rounded-full font-bold hover:bg-[#5a3a8a] transition-colors">
+            Acheter
+          </a>
+        </div>
+        
+        <div class="bg-[#151A25] rounded-2xl p-8 border-2 border-[#FDC700] text-center relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-[#FDC700]"></div>
+          <span class="absolute top-4 right-4 bg-[#FDC700] text-black text-xs font-bold px-2 py-1 rounded">POPULAIRE</span>
+          <h3 class="text-xl font-bold text-white mb-2">Pass 4 Jours</h3>
+          <p class="text-4xl font-bold text-[#FDC700] mb-4">99 EUR</p>
+          <ul class="text-white/70 text-sm space-y-2 mb-6">
+            <li>Acces a toutes les scenes</li>
+            <li>Valable 4 jours</li>
+            <li>Espace restauration</li>
+            <li>Camping inclus</li>
+          </ul>
+          <a href="#" class="block bg-[#FDC700] text-black py-3 px-6 rounded-full font-bold hover:bg-[#e5b600] transition-colors">
+            Acheter
+          </a>
+        </div>
+        
+        <div class="bg-[#151A25] rounded-2xl p-8 border border-[#2A2A3E] text-center relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-[#432766]"></div>
+          <h3 class="text-xl font-bold text-white mb-2">Pass VIP</h3>
+          <p class="text-4xl font-bold text-[#FDC700] mb-4">199 EUR</p>
+          <ul class="text-white/70 text-sm space-y-2 mb-6">
+            <li>Acces a toutes les scenes</li>
+            <li>Zone VIP exclusive</li>
+            <li>Consommations incluses</li>
+            <li>Meet & Greet artistes</li>
+          </ul>
+          <a href="#" class="block bg-[#432766] text-white py-3 px-6 rounded-full font-bold hover:bg-[#5a3a8a] transition-colors">
+            Acheter
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="px-6 py-12 bg-[#151A25]">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-2xl font-bold text-white mb-8 font-mono text-center">Questions Frequentes</h2>
+      
+      <div class="space-y-4">
+        <details class="bg-[#21252D] rounded-xl border border-[#2A2A3E] overflow-hidden group">
+          <summary class="p-6 cursor-pointer flex items-center justify-between text-white font-medium hover:bg-[#2A2A3E]/50 transition-colors">
+            Puis-je entrer et sortir du festival librement ?
+            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </summary>
+          <div class="px-6 pb-6 text-white/70">
+            Oui, votre bracelet vous permet d'entrer et sortir librement pendant toute la duree de votre pass.
+          </div>
+        </details>
+        
+        <details class="bg-[#21252D] rounded-xl border border-[#2A2A3E] overflow-hidden group">
+          <summary class="p-6 cursor-pointer flex items-center justify-between text-white font-medium hover:bg-[#2A2A3E]/50 transition-colors">
+            Y a-t-il une limite d'age ?
+            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </summary>
+          <div class="px-6 pb-6 text-white/70">
+            Le festival est ouvert a tous. Les mineurs de moins de 16 ans doivent etre accompagnes d'un adulte. Un espace enfants est disponible sur le site.
+          </div>
+        </details>
+        
+        <details class="bg-[#21252D] rounded-xl border border-[#2A2A3E] overflow-hidden group">
+          <summary class="p-6 cursor-pointer flex items-center justify-between text-white font-medium hover:bg-[#2A2A3E]/50 transition-colors">
+            Que puis-je apporter sur le site ?
+            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </summary>
+          <div class="px-6 pb-6 text-white/70">
+            Sont autorises : petits sacs (format A4 max), gourdes vides, protection solaire. Sont interdits : bouteilles en verre, objets dangereux, drones, animaux (sauf chiens-guides).
+          </div>
+        </details>
+        
+        <details class="bg-[#21252D] rounded-xl border border-[#2A2A3E] overflow-hidden group">
+          <summary class="p-6 cursor-pointer flex items-center justify-between text-white font-medium hover:bg-[#2A2A3E]/50 transition-colors">
+            Le site est-il accessible aux personnes a mobilite reduite ?
+            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </summary>
+          <div class="px-6 pb-6 text-white/70">
+            Oui, le festival est entierement accessible. Des plateformes PMR sont disponibles devant chaque scene. Contactez-nous pour toute demande specifique.
+          </div>
+        </details>
+        
+        <details class="bg-[#21252D] rounded-xl border border-[#2A2A3E] overflow-hidden group">
+          <summary class="p-6 cursor-pointer flex items-center justify-between text-white font-medium hover:bg-[#2A2A3E]/50 transition-colors">
+            Y a-t-il des consignes sur place ?
+            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </summary>
+          <div class="px-6 pb-6 text-white/70">
+            Oui, des consignes securisees sont disponibles a l'entree du festival. Tarif : 5 EUR par jour.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="px-6 py-12">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl font-bold text-white mb-8 font-mono text-center">Localisation</h2>
+      
+      <div class="bg-[#151A25] rounded-2xl overflow-hidden border border-[#2A2A3E]">
+        <div class="aspect-video bg-[#1A1A2E] flex items-center justify-center">
+          <div class="text-center">
+            <svg class="w-16 h-16 text-white/20 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <p class="text-white/60">Berges de la Savoureuse</p>
+            <p class="text-white/40">90000 Belfort, France</p>
+            <a href="https://maps.google.com/?q=Berges+de+la+Savoureuse+Belfort" target="_blank" rel="noopener" class="inline-block mt-4 bg-[#432766] text-white px-6 py-2 rounded-full font-medium hover:bg-[#5a3a8a] transition-colors">
+              Ouvrir dans Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

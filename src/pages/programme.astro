@@ -1,0 +1,173 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { artistesSorted, scenesName } from '../../backend/backend.mjs';
+
+// Fetch all artists sorted by date
+const artistes = await artistesSorted();
+const scenes = await scenesName();
+
+// Group artists by date
+const artistesByDate = artistes.reduce((acc, artiste) => {
+  const date = artiste.date_representation ? new Date(artiste.date_representation).toLocaleDateString('fr-FR', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long'
+  }) : 'Date non définie';
+  
+  if (!acc[date]) {
+    acc[date] = [];
+  }
+  acc[date].push(artiste);
+  return acc;
+}, {});
+
+// PocketBase URL for images
+const pbUrl = 'http://127.0.0.1:8090';
+
+function getImageUrl(record, field) {
+  if (!record[field]) return null;
+  return `${pbUrl}/api/files/${record.collectionId}/${record.id}/${record[field]}`;
+}
+---
+
+<Layout>
+  <!-- Page Header -->
+  <section class="py-28 px-6 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="font-mono text-4xl md:text-5xl font-bold text-white mb-2">Programme</h1>
+      <p class="text-white/90 text-lg md:text-xl">Découvrez le programme complet du festival</p>
+    </div>
+  </section>
+
+  <!-- Filter by Scene -->
+  <section class="px-6 pb-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-wrap gap-3 justify-center mb-8">
+        <button class="filter-btn active px-4 py-2 rounded-full bg-[#432766] text-white font-medium transition-all hover:bg-[#5a3a8a]" data-scene="all">
+          Toutes les scènes
+        </button>
+        {scenes.map((scene) => (
+          <button class="filter-btn px-4 py-2 rounded-full bg-[#1A1A2E] text-white/80 font-medium transition-all hover:bg-[#2A2A3E] border border-[#2A2A3E]" data-scene={scene.id}>
+            {scene.nom_scene}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Programme Grid by Date -->
+  <section class="px-6 pb-16">
+    <div class="max-w-6xl mx-auto">
+      {Object.entries(artistesByDate).map(([date, dayArtistes]) => (
+        <div class="mb-12">
+          <h2 class="text-2xl font-bold text-[#FDC700] mb-6 capitalize font-mono border-b border-[#432766] pb-3">
+            {date}
+          </h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {dayArtistes.map((artiste) => {
+              const imageUrl = getImageUrl(artiste, 'photo_principal');
+              const scene = scenes.find(s => s.id === artiste.scene);
+              const time = artiste.date_representation 
+                ? new Date(artiste.date_representation).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+                : '';
+              
+              return (
+                <a href={`/artistes/${artiste.id}`} class="programme-card group" data-scene={artiste.scene || ''}>
+                  <article class="bg-[#151A25] rounded-xl overflow-hidden border border-[#2A2A3E] transition-all hover:border-[#432766] hover:shadow-lg hover:shadow-purple-900/20">
+                    <div class="h-48 overflow-hidden relative">
+                      {imageUrl ? (
+                        <img src={imageUrl} alt={artiste.nom} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                      ) : (
+                        <div class="w-full h-full bg-[#1A1A2E] flex items-center justify-center">
+                          <span class="text-white/40 font-mono">Image non disponible</span>
+                        </div>
+                      )}
+                      {time && (
+                        <div class="absolute top-3 right-3 bg-[#432766]/90 text-white px-3 py-1 rounded-full text-sm font-bold">
+                          {time}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div class="p-5">
+                      <h3 class="text-xl font-bold text-white mb-2 group-hover:text-[#FDC700] transition-colors">
+                        {artiste.nom}
+                      </h3>
+                      
+                      <div class="flex flex-wrap gap-2 mb-3">
+                        {artiste.genre_musical && (
+                          <span class="text-xs bg-[#2A1F5C] text-white/80 px-2 py-1 rounded">
+                            {artiste.genre_musical}
+                          </span>
+                        )}
+                        {scene && (
+                          <span class="text-xs bg-[#1A1A2E] text-[#FDC700] px-2 py-1 rounded border border-[#432766]">
+                            {scene.nom_scene}
+                          </span>
+                        )}
+                      </div>
+                      
+                      <p class="text-white/70 text-sm line-clamp-2">
+                        {artiste.description || 'Description à venir...'}
+                      </p>
+                    </div>
+                  </article>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+      
+      {artistes.length === 0 && (
+        <div class="text-center py-16">
+          <p class="text-white/60 text-lg">Aucun artiste n'est encore programmé.</p>
+          <p class="text-white/40 mt-2">Revenez bientôt pour découvrir la programmation !</p>
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Filter functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.programme-card');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const scene = btn.dataset.scene;
+        
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active', 'bg-[#432766]'));
+        filterBtns.forEach(b => b.classList.add('bg-[#1A1A2E]'));
+        btn.classList.add('active', 'bg-[#432766]');
+        btn.classList.remove('bg-[#1A1A2E]');
+        
+        // Filter cards
+        cards.forEach(card => {
+          if (scene === 'all' || card.dataset.scene === scene) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .filter-btn.active {
+    background-color: #432766 !important;
+  }
+</style>
