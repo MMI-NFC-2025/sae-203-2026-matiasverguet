@@ -2,7 +2,7 @@
 import logo from '../assets/icons/logo.svg';
 ---
 
-<header style="background: red; color: white; padding: 1rem 0; position:relative;">
+<header style="background: #151A25; color: white; padding: 1rem 0; position:relative;">
 	<div style="max-width: 1100px; margin: 0 auto; padding: 0 1rem; display:flex; align-items:center; justify-content:space-between;">
 		<a href="/" style="display:inline-block;">
 			<img src={logo.src} alt="Le Festival" style="height:40px; display:block;" />
@@ -17,13 +17,13 @@ import logo from '../assets/icons/logo.svg';
 				<span class="close" style="display:none;padding:6px;color:white;font-size:28px;line-height:1;">×</span>
 			</button>
 
-			<div id="burger-menu" style="display:none; position:fixed; left:0; right:0; top:0; background:red; color:white; padding:0; border-radius:0; z-index:40; justify-content:center; align-items:center;">
+			<div id="burger-menu" style="display:none; position:fixed; left:0; right:0; top:0; background:#151A25; color:white; padding:0; border-radius:0; z-index:40; justify-content:center; align-items:center;">
 				<nav style="width:100%;">
 					<div style="max-width:1100px;margin:0 auto;padding:2rem 1rem;display:flex;flex-direction:column;align-items:center;">
 						<a href="/festival" style="display:block;padding:1.25rem 0;color:inherit;text-decoration:none;font-size:2rem;text-align:center;">Le festival</a>
-						<a href="/[Idprogramme]" style="display:block;padding:1.25rem 0;color:inherit;text-decoration:none;font-size:2rem;text-align:center;">Programme</a>
+						<a href="/programme" style="display:block;padding:1.25rem 0;color:inherit;text-decoration:none;font-size:2rem;text-align:center;">Programme</a>
 						<a href="/artistes" style="display:block;padding:1.25rem 0;color:inherit;text-decoration:none;font-size:2rem;text-align:center;">Artistes</a>
-						<a href="/[IdScene]" style="display:block;padding:1.25rem 0;color:inherit;text-decoration:none;font-size:2rem;text-align:center;">Scènes</a>
+						<a href="/scenes" style="display:block;padding:1.25rem 0;color:inherit;text-decoration:none;font-size:2rem;text-align:center;">Scènes</a>
 						<a href="/infos" style="display:block;padding:1.25rem 0;color:inherit;text-decoration:none;font-size:2rem;text-align:center;">Info pratique</a>
 						<a href="/contact" style="display:block;padding:1.25rem 0;color:inherit;text-decoration:none;font-size:2rem;text-align:center;">Contact</a>
 					</div>
@@ -40,46 +40,52 @@ import logo from '../assets/icons/logo.svg';
 		const headerEl = document.querySelector('header');
 		if (!btn || !menu || !headerEl) return;
 
+		// narrow types for TS
+		const btnEl = btn as HTMLButtonElement;
+		const menuEl = menu as HTMLElement;
+		const headerElNonNull = headerEl as HTMLElement;
+
 		// find burger/close elements
-		const burgerEl = btn.querySelector('.burger');
-		const closeEl = btn.querySelector('.close');
+		const burgerEl = btnEl.querySelector<HTMLElement>('.burger');
+		const closeEl = btnEl.querySelector<HTMLElement>('.close');
 
 		function openMenu() {
-			const rect = headerEl.getBoundingClientRect();
+			const rect = headerElNonNull.getBoundingClientRect();
 			const top = rect.bottom;
-			menu.style.display = 'flex';
-			menu.style.top = top + 'px';
-			menu.style.height = (window.innerHeight - top) + 'px';
-			const headerBg = getComputedStyle(headerEl).backgroundColor || 'red';
-			menu.style.background = headerBg;
+			menuEl.style.display = 'flex';
+			menuEl.style.top = top + 'px';
+			menuEl.style.height = (window.innerHeight - top) + 'px';
+			const headerBg = getComputedStyle(headerElNonNull).backgroundColor || 'red';
+			menuEl.style.background = headerBg;
 			// accessibility + block scroll + show close icon
-			btn.setAttribute('aria-expanded', 'true');
-			btn.setAttribute('aria-label', 'Close menu');
+			btnEl.setAttribute('aria-expanded', 'true');
+			btnEl.setAttribute('aria-label', 'Close menu');
 			if (burgerEl) burgerEl.style.display = 'none';
 			if (closeEl) closeEl.style.display = 'block';
 			document.body.style.overflow = 'hidden';
 		}
 
 		function closeMenu() {
-			menu.style.display = 'none';
-			menu.style.top = '';
-			menu.style.height = '';
-			btn.setAttribute('aria-expanded', 'false');
-			btn.setAttribute('aria-label', 'Menu');
+			menuEl.style.display = 'none';
+			menuEl.style.top = '';
+			menuEl.style.height = '';
+			btnEl.setAttribute('aria-expanded', 'false');
+			btnEl.setAttribute('aria-label', 'Menu');
 			if (burgerEl) burgerEl.style.display = 'flex';
 			if (closeEl) closeEl.style.display = 'none';
 			document.body.style.overflow = '';
 		}
 
-		btn.addEventListener('click', (e) => {
+		btnEl.addEventListener('click', (e) => {
 			e.stopPropagation();
-			if (menu.style.display === 'flex') closeMenu(); else openMenu();
+			if (menuEl.style.display === 'flex') closeMenu(); else openMenu();
 		});
 
 		// Close when clicking outside
 		document.addEventListener('click', (e) => {
-			if (menu.style.display !== 'flex') return;
-			if (btn.contains(e.target) || menu.contains(e.target)) return;
+			if (menuEl.style.display !== 'flex') return;
+			const target = e.target as Node | null;
+			if (btnEl.contains(target as Node) || menuEl.contains(target as Node)) return;
 			closeMenu();
 		});
 
@@ -87,11 +93,11 @@ import logo from '../assets/icons/logo.svg';
 
 		// Adjust on resize if open
 		window.addEventListener('resize', () => {
-			if (menu.style.display !== 'flex') return;
-			const rect = headerEl.getBoundingClientRect();
+			if (menuEl.style.display !== 'flex') return;
+			const rect = headerElNonNull.getBoundingClientRect();
 			const top = rect.bottom;
-			menu.style.top = top + 'px';
-			menu.style.height = (window.innerHeight - top) + 'px';
+			menuEl.style.top = top + 'px';
+			menuEl.style.height = (window.innerHeight - top) + 'px';
 		});
 	});
 </script>

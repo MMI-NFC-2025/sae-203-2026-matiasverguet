@@ -1,0 +1,74 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import CardProg from '../../components/CardProg.astro';
+import { sceneID, allartistebysceneId } from '../../../backend/backend.mjs';
+
+const { IdScene } = Astro.params;
+if (!IdScene) return Astro.redirect('/scenes');
+
+const scene = await sceneID(IdScene);
+if (!scene) return Astro.redirect('/scenes');
+
+let artistes = [];
+try {
+  artistes = await allartistebysceneId(IdScene);
+  if (!Array.isArray(artistes)) artistes = [];
+} catch (e) {
+  artistes = [];
+}
+
+function groupByDay(list: any[]): Array<[string, any[]]> {
+  const map = new Map<string, any[]>();
+  for (const item of list) {
+    const d = (item as any).date_de_representation || (item as any).date_representation || (item as any).created;
+    const day = d ? new Date(d).toISOString().slice(0,10) : 'unknown';
+    if (!map.has(day)) map.set(day, []);
+    map.get(day)!.push(item);
+  }
+  return Array.from(map.entries()).sort((a,b) => a[0].localeCompare(b[0]));
+}
+
+const groups = groupByDay(artistes);
+
+const imageUrl = scene.photo_scene && scene.collectionId ? `http://127.0.0.1:8090/api/files/${scene.collectionId}/${scene.id}/${scene.photo_scene}` : '';
+---
+
+<Layout title={scene.nom_scene || scene.nom}>
+  <header class="w-full">
+    <div class="h-[50vh] w-full overflow-hidden">
+      <img src={imageUrl} alt={scene.nom_scene || scene.nom} class="w-full h-full object-cover" />
+    </div>
+
+    <div class="-mt-40 max-w-6xl mx-auto px-6">
+      <div class="bg-[#0f1720] text-white rounded-b-xl px-8 py-8 shadow-inner border border-gray-800">
+        <h1 class="courier-prime-bold text-3xl mb-2 text-white">{scene.nom_scene || scene.nom}</h1>
+        {scene.description && <p class="text-white">{scene.description}</p>}
+      </div>
+    </div>
+  </header>
+
+  <main class="bg-white pt-12 pb-12 px-4">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-center text-2xl font-bold courier-prime-bold mb-8">Programmation de la scène</h2>
+
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-[#0f1720] rounded-xl p-6 space-y-6">
+          {groups.length === 0 ? (
+            <p class="text-white">Aucun artiste programmé pour cette scène.</p>
+          ) : (
+            groups.map(([day, items]) => (
+              <section data-day={day}>
+                <div class="text-white font-semibold text-sm mb-4">{new Date(day).toLocaleDateString('fr-FR', { weekday: 'long', day: '2-digit', month: 'long' })}</div>
+                <div class="space-y-4">
+                  {items.map((artiste: any) => (
+                    <CardProg artiste={artiste} />
+                  ))}
+                </div>
+              </section>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

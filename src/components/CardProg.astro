@@ -13,9 +13,9 @@ const heure = dateObj.toLocaleTimeString('fr-FR', {
 const nomScene = artiste.expand?.scene?.nom_scene || "Scène Principale";
 ---
 
-<div class="flex flex-row items-center bg-[#111827] text-white p-6 rounded-xl gap-8 w-full max-w-5xl border border-gray-800 shadow-xl mx-auto">
+<div class="flex flex-row items-center bg-[#111827] text-white p-6 rounded-xl gap-8 w-full border border-gray-800 shadow-xl">
   
-  <div class="text-[#FFD700] text-4xl font-bold min-w-[120px]">
+  <div class="text-[#FFD700] text-4xl font-bold" style="min-width:120px;">
     {heure}
   </div>
 

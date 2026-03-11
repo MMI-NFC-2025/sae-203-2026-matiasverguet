@@ -1,0 +1,40 @@
+---
+const { artiste } = Astro.props;
+
+// Try common image fields (PocketBase schema): prefer `photo_principal`, then gallery
+const fileName = artiste?.photo_principal || (Array.isArray(artiste?.galerie_photos) && artiste.galerie_photos[0]) || artiste?.photo || artiste?.photo_artiste || artiste?.image || '';
+const imageUrl = fileName && artiste?.collectionId
+	? `http://127.0.0.1:8090/api/files/${artiste.collectionId}/${artiste.id}/${fileName}`
+	: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=1200&q=60&auto=format&fit=crop';
+
+const dateStr = artiste?.date_de_representation || artiste?.date_representation || artiste?.created
+	? new Date(artiste.date_de_representation || artiste.date_representation || artiste.created).toLocaleDateString('fr-FR', { day: '2-digit', month: 'long' })
+	: '';
+
+const sceneName = artiste?.expand?.scene?.nom_scene || artiste?.scene_name || (artiste?.scene && artiste.scene[0]) || '';
+const genre = artiste?.genre_musical || artiste?.genre || '';
+---
+
+<a href={`/artiste/${artiste?.id}`} class="block">
+	<article class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+		<div
+			class="w-full h-64 sm:h-72 md:h-80 bg-gray-200"
+			style={`background-image: url(${imageUrl}); background-size: auto 150%; background-position: center center; background-repeat: no-repeat;`}
+			role="img"
+			aria-label={artiste?.nom || 'artiste'}
+		></div>
+
+		<div class="bg-[#0f1720] text-white p-6">
+			<h3 class="text-xl font-extrabold courier-prime-bold mb-2">{artiste?.nom}</h3>
+			<p class="text-gray-300 text-sm mb-3">{dateStr}{dateStr && sceneName ? ' - ' : ''}{sceneName}</p>
+
+			<div>
+				<span class="bg-[#FFD700] text-black text-[11px] font-extrabold px-3 py-1 rounded-full uppercase">{genre || 'Divers'}</span>
+			</div>
+		</div>
+	</article>
+</a>
+
+<style>
+	.courier-prime-bold { font-family: 'Courier Prime', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; }
+</style>

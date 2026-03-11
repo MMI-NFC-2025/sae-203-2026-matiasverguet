@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CardArtistes from "../components/cardArtistes.astro";
+import { artistesName } from '../../backend/backend.mjs';
+
+const artistes = await artistesName();
+---
+
+<Layout>
+	<!-- Banner under header -->
+	<section class="w-full bg-[#151A25]">
+		<div class="max-w-6xl mx-auto px-4 py-12 text-center">
+			<h2 class="text-white text-4xl md:text-5xl font-bold courier-prime-bold">Les Artistes</h2>
+			<p class="text-white/80 mt-4 text-lg md:text-xl">Découvrez tous les talents du festival</p>
+		</div>
+	</section>
+
+	<section class="max-w-6xl mx-auto px-4 py-12">
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+			{artistes.length === 0 ? (
+				<p class="col-span-full text-center text-gray-500">Aucun artiste trouvé.</p>
+			) : (
+				artistes.map((a) => (
+					<CardArtistes artiste={a} />
+				))
+			)}
+		</div>
+	</section>
+</Layout>
