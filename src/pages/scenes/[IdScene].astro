@@ -30,7 +30,7 @@ function groupByDay(list: any[]): Array<[string, any[]]> {
 
 const groups = groupByDay(artistes);
 
-const imageUrl = scene.photo_scene && scene.collectionId ? `http://127.0.0.1:8090/api/files/${scene.collectionId}/${scene.id}/${scene.photo_scene}` : '';
+const imageUrl = scene.photo_scene && scene.collectionId ? `https://les-rives-du-territoire.verguet-bailly.fr/api/files/${scene.collectionId}/${scene.id}/${scene.photo_scene}` : '';
 ---
 
 <Layout title={scene.nom_scene || scene.nom}>

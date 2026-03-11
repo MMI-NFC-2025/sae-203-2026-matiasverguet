@@ -4,7 +4,7 @@ const { artiste } = Astro.props;
 // Try common image fields (PocketBase schema): prefer `photo_principal`, then gallery
 const fileName = artiste?.photo_principal || (Array.isArray(artiste?.galerie_photos) && artiste.galerie_photos[0]) || artiste?.photo || artiste?.photo_artiste || artiste?.image || '';
 const imageUrl = fileName && artiste?.collectionId
-	? `http://127.0.0.1:8090/api/files/${artiste.collectionId}/${artiste.id}/${fileName}`
+	? `https://les-rives-du-territoire.verguet-bailly.fr/api/files/${artiste.collectionId}/${artiste.id}/${fileName}`
 	: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=1200&q=60&auto=format&fit=crop';
 
 const dateStr = artiste?.date_de_representation || artiste?.date_representation || artiste?.created

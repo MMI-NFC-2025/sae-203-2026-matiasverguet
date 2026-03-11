@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import CardProg from '../components/CardProg.astro';
 import PocketBase from 'pocketbase';
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+const pb = new PocketBase('https://les-rives-du-territoire.verguet-bailly.fr');
 
 // Récupération des données avec l'expand pour la scène
 const records = await pb.collection('artistes').getFullList({ 

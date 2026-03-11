@@ -19,7 +19,7 @@ const fileName = Array.isArray(artiste.photo_principal) && artiste.photo_princip
 	? artiste.photo_principal[0]
 	: artiste.photo_principal || "";
 const imageUrl = fileName
-	? `http://127.0.0.1:8090/api/files/${artiste.collectionId}/${artiste.id}/${fileName}`
+	? `https://les-rives-du-territoire.verguet-bailly.fr/api/files/${artiste.collectionId}/${artiste.id}/${fileName}`
 	: "";
 
 // Format date
@@ -43,7 +43,7 @@ const genre = artiste.genre_musical || "";
 
 // Build gallery image URLs
 const galeriePhotos: string[] = Array.isArray(artiste.galerie_photos) ? artiste.galerie_photos : (artiste.galerie_photos ? [artiste.galerie_photos] : []);
-const galerieUrls = galeriePhotos.map((f: string) => `http://127.0.0.1:8090/api/files/${artiste.collectionId}/${artiste.id}/${f}`);
+const galerieUrls = galeriePhotos.map((f: string) => `https://les-rives-du-territoire.verguet-bailly.fr/api/files/${artiste.collectionId}/${artiste.id}/${f}`);
 ---
 
 <Layout>

@@ -7,7 +7,7 @@ let imageUrl = '';
 if (scene?.imageUrl) {
     imageUrl = scene.imageUrl;
 } else if (scene?.photo_scene && scene?.collectionId) {
-    imageUrl = `http://127.0.0.1:8090/api/files/${scene.collectionId}/${scene.id}/${scene.photo_scene}`;
+    imageUrl = `https://les-rives-du-territoire.verguet-bailly.fr/api/files/${scene.collectionId}/${scene.id}/${scene.photo_scene}`;
 } else {
     imageUrl = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1600&auto=format&fit=crop&q=60';
 }
