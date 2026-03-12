@@ -1,15 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CardProg from '../components/CardProg.astro';
-import PocketBase from 'pocketbase';
+import { artistesSorted } from '../../backend/backend.mjs';
 
-const pb = new PocketBase('https://les-rives-du-territoire.verguet-bailly.fr');
-
-// Récupération des données avec l'expand pour la scène
-const records = await pb.collection('artistes').getFullList({ 
-  sort: 'date_representation',
-  expand: 'scene' 
-});
+const records = await artistesSorted();
 
 // Grouper les artistes par date (YYYY-MM-DD)
 function groupByDay(list) {
@@ -24,6 +18,10 @@ function groupByDay(list) {
 }
 
 const groups = groupByDay(records);
+const dayLabels = groups.map(([day]) => ({
+  key: day,
+  label: new Date(day).toLocaleDateString('fr-FR', { day: '2-digit', month: 'long' })
+}));
 ---
 <Layout title="Programmation du Festival">
     <section class="w-full bg-[#151A25]">
@@ -32,13 +30,26 @@ const groups = groupByDay(records);
 			<p class="text-white/80 mt-4 text-lg md:text-xl">Découvrez la programmation complète du festival</p>
 		</div>
 	</section>
-  <main class="p-10 flex flex-col gap-6 bg-white min-h-screen">
 
-    
+  <!-- Filtres par jour -->
+  <section class="w-full bg-[#1c2333] py-6">
+    <div class="flex flex-wrap justify-center gap-3">
+      <button data-filter="all" class="filter-btn active px-6 py-2 rounded-full text-sm font-bold border border-white/20 transition-colors">
+        Tous
+      </button>
+      {dayLabels.map(({ key, label }) => (
+        <button data-filter={key} class="filter-btn px-6 py-2 rounded-full text-sm font-bold border border-white/20 transition-colors">
+          {label}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <main class="p-10 flex flex-col gap-6 bg-white min-h-screen">
 
     <div class="flex flex-col gap-8">
       {groups.map(([day, items]) => (
-        <section key={day}>
+        <section data-day={day}>
           <header class="max-w-6xl mx-auto px-4 mb-6">
             <h3 class="text-2xl font-bold courier-prime-bold">{new Date(day).toLocaleDateString('fr-FR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' })}</h3>
             <p class="text-gray-500">Programme complet</p>
@@ -57,3 +68,34 @@ const groups = groupByDay(records);
     </div>
   </main>
 </Layout>
+
+<style>
+  .filter-btn {
+    color: white;
+    background: transparent;
+    cursor: pointer;
+  }
+  .filter-btn.active {
+    background: #FFD700;
+    color: black;
+    border-color: #FFD700;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.getAttribute('data-filter');
+      document.querySelectorAll('[data-day]').forEach(section => {
+        if (filter === 'all' || section.getAttribute('data-day') === filter) {
+          (section as HTMLElement).style.display = '';
+        } else {
+          (section as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

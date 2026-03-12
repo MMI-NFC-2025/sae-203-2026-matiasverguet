@@ -2,7 +2,7 @@ import PocketBase from 'pocketbase';
 const pb = new PocketBase('https://les-rives-du-territoire.verguet-bailly.fr:443');
 
 export async function artistesSorted() { 
-    const records = await pb.collection('artistes').getFullList({ sort: 'date_representation' }); 
+    const records = await pb.collection('artistes').getFullList({ sort: 'date_representation', expand: 'scene' }); 
     return records; 
 }
 
