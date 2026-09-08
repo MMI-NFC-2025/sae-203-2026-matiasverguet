@@ -1,9 +1,13 @@
 import PocketBase from 'pocketbase'; 
-const pb = new PocketBase('https://les-rives-du-territoire.verguet-bailly.fr:443');
+const pb = new PocketBase(import.meta.env.POCKETBASE_URL || 'http://127.0.0.1:8090');
 
 export async function artistesSorted() { 
-    const records = await pb.collection('artistes').getFullList({ sort: 'date_representation', expand: 'scene' }); 
-    return records; 
+    try {
+        return await pb.collection('artistes').getFullList({ sort: 'date_representation', expand: 'scene' });
+    } catch (e) {
+        console.error('Erreur artistesSorted:', e);
+        return [];
+    }
 }
 
 export async function scenesName() { 
@@ -17,23 +21,39 @@ export async function scenesName() {
 }
 
 export async function artistesName() { 
-    const records = await pb.collection('artistes').getFullList({ sort: 'nom' }); 
-    return records; 
+    try {
+        return await pb.collection('artistes').getFullList({ sort: 'nom' });
+    } catch (e) {
+        console.error('Erreur artistesName:', e);
+        return [];
+    }
 }
 
 export async function artisteID(id) { 
-    const record = await pb.collection('artistes').getOne(id); 
-    return record; 
+    try {
+        return await pb.collection('artistes').getOne(id);
+    } catch (e) {
+        console.error('Erreur artisteID:', e);
+        return null;
+    }
 }
 
 export async function sceneID(id) { 
-    const record = await pb.collection('scenes').getOne(id); 
-    return record; 
+    try {
+        return await pb.collection('scenes').getOne(id);
+    } catch (e) {
+        console.error('Erreur sceneID:', e);
+        return null;
+    }
 }
 
 export async function allartistebysceneId(id) { 
-    const records = await pb.collection('artistes').getFullList({ filter: `scene = "${id}"`, sort: 'date_representation' }); 
-    return records; 
+    try {
+        return await pb.collection('artistes').getFullList({ filter: `scene = "${id}"`, sort: 'date_representation' });
+    } catch (e) {
+        console.error('Erreur allartistebysceneId:', e);
+        return [];
+    }
 }
 
 export async function allartistebysceneName(nom) {

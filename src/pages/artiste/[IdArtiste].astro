@@ -4,13 +4,15 @@ import { artisteID, sceneID } from "../../../backend/backend.mjs";
 
 const { IdArtiste } = Astro.params;
 const artiste = await artisteID(IdArtiste);
+if (!artiste) return Astro.redirect('/artistes');
+const pocketBaseUrl = import.meta.env.POCKETBASE_URL || 'http://127.0.0.1:8090';
 
 // Resolve scene name from relation
 let sceneName = "";
 if (artiste.scene) {
 	try {
 		const scene = await sceneID(artiste.scene);
-		sceneName = scene.nom_scene || "";
+		sceneName = scene?.nom_scene || "";
 	} catch (_) {}
 }
 
@@ -19,7 +21,7 @@ const fileName = Array.isArray(artiste.photo_principal) && artiste.photo_princip
 	? artiste.photo_principal[0]
 	: artiste.photo_principal || "";
 const imageUrl = fileName
-	? `https://les-rives-du-territoire.verguet-bailly.fr/api/files/${artiste.collectionId}/${artiste.id}/${fileName}`
+	? `${pocketBaseUrl}/api/files/${artiste.collectionId}/${artiste.id}/${fileName}`
 	: "";
 
 // Format date
@@ -43,7 +45,7 @@ const genre = artiste.genre_musical || "";
 
 // Build gallery image URLs
 const galeriePhotos: string[] = Array.isArray(artiste.galerie_photos) ? artiste.galerie_photos : (artiste.galerie_photos ? [artiste.galerie_photos] : []);
-const galerieUrls = galeriePhotos.map((f: string) => `https://les-rives-du-territoire.verguet-bailly.fr/api/files/${artiste.collectionId}/${artiste.id}/${f}`);
+const galerieUrls = galeriePhotos.map((f: string) => `${pocketBaseUrl}/api/files/${artiste.collectionId}/${artiste.id}/${f}`);
 ---
 
 <Layout>
